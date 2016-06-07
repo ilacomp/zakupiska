@@ -2,7 +2,7 @@
 
 /**
  * Created by PhpStorm.
- * User: Ilya Yudin <iyudin@solovat.net>
+ * User: Ilya Yudin <ila.comp@gmail.com>
  * Date: 18.01.2016
  * Time: 13:38
  */
@@ -12,8 +12,8 @@ require_once 'db.class.php';
 require_once 'user.class.php';
 class APIv1 extends API
 {
-    protected $User;
-    protected $db;
+    public $User;
+    public $db;
 
     public function __construct($request, $origin) {
         parent::__construct($request);
@@ -30,77 +30,26 @@ class APIv1 extends API
         $this->User = new User(true);
     }
 
-    protected function exitIfUnauthorized(){
+    public function exitIfUnauthorized(){
         if (!$this->User->authorized()) {
             throw new Exception ('Forbidden', 403);
         }
     }
 
-    protected function auth($args){
-        switch ($this->verb) {
-            case 'login':
-                    if ($this->User->login($args['username'], $args['password'])) {
-                        return array(
-                            'user' => $this->User->getUserInfo(),
-                            'token' => session_id(),
-                        );
-                    } else {
-                        return array(
-                            'error' => $this->User->error
-                        );
-                    }
-                break;
-            case 'logout':
-                $this->User->logout();
-                return $this->User->getUserInfo();
-                break;
-            case 'register':
-                if ($this->User->register($args['username'], $args['email'], $args['pass1'], $args['pass2']))
-                    return array(
-                        'user' => $this->User->getUserInfo(),
-                        'token' => session_id(),
-                    );
-                else {
-                    return array(
-                        'error' => $this->User->error
-                    );
-                }
-            case '':
-                if ($this->method == 'GET') {
-                    return $this->User->getUserInfo();
-                }
-                break;
-        }
-    }
-
-    protected function lists($args) {
-        $this->exitIfUnauthorized();
-        if (empty($this->verb)) {
-            //Выполняем запрос /lists
-            switch($this->method) {
-                case 'GET':
-                    $rs = $this->db->prepare("SELECT lists.* FROM lists, user_lists WHERE user_lists.id_user = ? AND lists.id_list = user_lists.id_list");
-                    $rs->execute(array($this->User->getId()));
-                    $list = $rs->fetchAll(PDO::FETCH_ASSOC);
-                    return $list;
-                    break;
-                case 'PUT':
-                    $rs = $this->db->prepare("INSERT INTO lists (title, color) VALUES (?,?)");
-                    if ( $rs->execute(array($args['title'], $args['color'])) ) {
-                        $id_list = $this->db->lastInsertId();
-                        $rs = $this->db->prepare("INSERT INTO user_lists (id_list, id_user) VALUES (?,?)");
-                        if ( $rs->execute(array($id_list, $this->User->getId())) ) {
-                            return array('id_list' => $id_list);
-                        } else {
-                            return array('error'=>'Ошибка при создании списка');
-                        }
-                    } else {
-                        return array('error'=>'Ошибка при создании списка');
-                    }
-                    break;
+    public function processAPI() {
+        $endpointFile = __DIR__."/endpoints/$this->endpoint.class.php";
+        if (file_exists($endpointFile)) {
+            try {
+                require_once ($endpointFile);
+                $endpoint = new Endpoint($this);
+                return $this->_response($endpoint->processAPI());
             }
-        } else {
+            catch (Exception $e) {
+                return $this->_response($e->getMessage(), $e->getCode());
+            }
 
         }
+        return $this->_response("No Endpoint: $this->endpoint", 404);
     }
+    
 }

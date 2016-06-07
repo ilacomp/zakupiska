@@ -2,7 +2,7 @@
 
 /**
  * Created by PhpStorm.
- * User: Ilya Yudin <iyudin@solovat.net>
+ * User: Ilya Yudin <ila.comp@gmail.com>
  * Date: 18.01.2016
  * Time: 13:35
  */
@@ -12,30 +12,30 @@ abstract class API
      * Property: method
      * The HTTP method this request was made in, either GET, POST, PUT or DELETE
      */
-    protected $method = '';
+    public $method = '';
     /**
      * Property: endpoint
      * The Model requested in the URI. eg: /files
      */
-    protected $endpoint = '';
+    public $endpoint = '';
     /**
      * Property: verb
      * An optional additional descriptor about the endpoint, used for things that can
      * not be handled by the basic methods. eg: /files/process
      */
-    protected $verb = '';
+    public $verb = '';
     /**
      * Property: args
      * Any additional URI components after the endpoint and verb have been removed, in our
      * case, an integer ID for the resource. eg: /<endpoint>/<verb>/<arg0>/<arg1>
      * or /<endpoint>/<arg0>
      */
-    protected $args = Array();
+    public $args = Array();
     /**
      * Property: file
      * Stores the input of the PUT request
      */
-    protected $file = Null;
+    public $file = Null;
 
     /**
      * Constructor: __construct
@@ -53,7 +53,6 @@ abstract class API
         }
         $data = (array)json_decode( file_get_contents( 'php://input' ), true );
         $this->args = array_merge($this->args, $data);
-
         $this->method = $_SERVER['REQUEST_METHOD'];
         if ($this->method == 'POST' && array_key_exists('HTTP_X_HTTP_METHOD', $_SERVER)) {
             if ($_SERVER['HTTP_X_HTTP_METHOD'] == 'DELETE') {
@@ -83,20 +82,9 @@ abstract class API
         }
     }
 
-    public function processAPI() {
-        if (method_exists($this, $this->endpoint)) {
-            try {
-                return $this->_response($this->{$this->endpoint}($this->args));
-            }
-            catch (Exception $e) {
-                return $this->_response($e->getMessage(), $e->getCode());
-            }
+    abstract function processAPI();
 
-        }
-        return $this->_response("No Endpoint: $this->endpoint", 404);
-    }
-
-    private function _response($data, $status = 200) {
+    protected function _response($data, $status = 200) {
         header("HTTP/1.1 " . $status . " " . $this->_requestStatus($status));
         return json_encode($data);
     }
@@ -116,6 +104,7 @@ abstract class API
     private function _requestStatus($code) {
         $status = array(
             200 => 'OK',
+            401 => 'Unauthorized',
             403 => 'Forbidden',
             404 => 'Not Found',
             405 => 'Method Not Allowed',
