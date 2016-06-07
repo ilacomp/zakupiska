@@ -86,7 +86,7 @@ abstract class API
 
     protected function _response($data, $status = 200) {
         header("HTTP/1.1 " . $status . " " . $this->_requestStatus($status));
-        return json_encode($data);
+        if ($status==200) return json_encode($data);
     }
 
     private function _cleanInputs($data) {
