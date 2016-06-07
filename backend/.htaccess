@@ -1,0 +1,8 @@
+<FilesMatch "\.(htm|php|html|css|js)$">
+	AddDefaultCharset utf-8
+</FilesMatch>
+RewriteEngine On
+RewriteRule ^api/v1/(.*)$ api/v1/index.php?request=$1 [L,QSA,NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php [L]
