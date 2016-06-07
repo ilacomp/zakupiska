@@ -1,0 +1,14 @@
+{
+  "name": "zakupiska",
+  "description": "buy products list",
+  "main": "index.html",
+  "authors": [
+    "ila.comp@gmail.com"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/ilacomp/zakupiska",
+  "private": true,
+  "dependencies": {
+    "angular-material": "^1.0.9"
+  }
+}

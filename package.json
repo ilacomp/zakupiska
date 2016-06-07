@@ -1,0 +1,23 @@
+{
+  "name": "zakupiska",
+  "version": "1.0.0",
+  "description": "buy products list",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilacomp/zakupiska.git"
+  },
+  "author": "ila.comp@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilacomp/zakupiska/issues"
+  },
+  "homepage": "https://github.com/ilacomp/zakupiska#readme",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1"
+  }
+}
