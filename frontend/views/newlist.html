@@ -1,8 +1,23 @@
-<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'animation-class': 'toast-center'}"></toaster-container>
-<form class="form-newlist" role="form" ng-submit="newlist.add()">
-    <h2 class="form-signin-heading">Новый список</h2>
-    <input type="text" class="form-control" placeholder="Название списка" ng-model="newlist.title" ng-required="true" autofocus>
-    <input type="color" class="form-control" ng-model="newlist.color" >
-    <br><br>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="newlist.disabled">Создать</button>
-</form>
+<div layout="column" ng-cloak layout-padding>
+    <form name="newListForm" ng-submit="newlist.add()" novalidate>
+        <h2>Новый список</h2>
+        <md-input-container class="md-block">
+            <label>Название списка</label>
+            <input required name="title" ng-model="newlist.title" autofocus>
+            <div ng-messages="newListForm.title.$error">
+                <div ng-message="required">Заполните поле</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Цвет</label>
+            <input type="color" required name="color" ng-model="newlist.color">
+            <div ng-messages="newListForm.color.$error">
+                <div ng-message="required">Заполните поле</div>
+            </div>
+        </md-input-container>
+        <section layout="row" layout-align="center center" layout-wrap>
+            <md-button class="md-raised md-primary" ng-disabled="!newListForm.$valid || $newlist.disabled" type="submit">Создать</md-button>
+        </section>
+
+    </form>
+</div>

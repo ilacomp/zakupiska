@@ -4,9 +4,9 @@
 (function() {
     angular.module('APP').controller("NewListCtrl", NewListCtrl);
 
-    NewListCtrl.$inject = ['$state', 'listService'];
+    NewListCtrl.$inject = ['$state', 'listService', '$mdToast'];
 
-    function NewListCtrl ($state, listService) {
+    function NewListCtrl ($state, listService, $mdToast) {
         var self = this;
         this.title = '';
         this.color = '#FFFFFF';
@@ -18,7 +18,7 @@
             listService.put({title: self.title, color: self.color}, function(data){
                 self.disabled = false;
                 if (data.error) {
-                    toaster.error("Ошибка", data.error);
+                    $mdToast.showSimple(data.error);
                 } else {
                     $state.go('list_detail', {id_list: data.id_list});
                 }
