@@ -16,28 +16,32 @@
     <title>ЗакуПиська</title>
 
     <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="/css/vendor.min.css">
-    <link rel="stylesheet" href="/css/main.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/css/vendor.min.css" rel="stylesheet">
+    <link href="/css/main.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 </head>
 
 <body ng-app="APP" ng-cloak>
 <div layout="column" style="height:600px" ng-cloak>
-    <md-toolbar md-scroll-shrink ng-controller="ToolBarController">
+    <md-toolbar md-scroll-shrink ng-controller="ToolBarCtrl as toolbar">
         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleSideBar()">
+            <md-button class="md-icon-button" aria-label="Settings" ng-click="toolbar.toggleSideBar()" hide-gt-md>
                 <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
             </md-button>
             <h3>
-                <span>Заголовок</span>
+                <span>ЗакуПиська</span>
             </h3>
         </div>
     </md-toolbar>
     <div layout="row" layout-fill>
-        <md-sidenav class="md-sidenav-left" md-component-id="left">
+        <md-sidenav class="md-sidenav-left"
+                    md-component-id="left"
+                    md-is-locked-open="$mdMedia('gt-md')"
+                    md-disable-backdrop
+                    md-whiteframe="4">
             <md-toolbar layout="row" class="md-theme-indigo">
-                <div class="md-toolbar-tools"><h1>Sidenav Left</h1></div>
+                <div class="md-toolbar-tools"><h1>Меню</h1></div>
             </md-toolbar>
 
             <md-content flex>
@@ -81,47 +85,13 @@
         </md-sidenav>
 
         <md-content flex layout-padding>
-            Content here<br>
-            <select ng-init="sex='f'" ng-model="sex">
-                <option value="m">Male</option>
-                <option value="f">Female</option>
-            </select>
-
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
-            <h1>test</h1>
+            <div class="mainview" ui-view></div>
         </md-content>
     </div>
 </div>
 
 <script src="/js/vendor.min.js"></script>
-
-<!-- Your application bootstrap  -->
-<script type="text/javascript">
-    /**
-     * You must include the dependency on 'ngMaterial'
-     */
-    angular.module('APP', ['ngMaterial']);
-
-    angular.module('APP').controller('ToolBarController', function($scope, $mdSidenav){
-        $scope.toggleSideBar = function(){
-            $mdSidenav('left').toggle();
-        }
-    });
-</script>
+<script src="/js/main.min.js"></script>
 
 </body>
 </html>

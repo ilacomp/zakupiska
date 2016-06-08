@@ -1,0 +1,12 @@
+<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'animation-class': 'toast-center'}"></toaster-container>
+
+<form class="form-signin" role="form" ng-submit="register.register()">
+    <h2 class="form-signin-heading">Регистрация</h2>
+    <input type="text" class="form-control" placeholder="Имя" ng-model="register.username" ng-required="true" autofocus>
+    <input type="email" class="form-control" placeholder="Email" ng-model="register.email" ng-required="true">
+    <br>
+    <input type="password" class="form-control" placeholder="Пароль" ng-model="register.pass1" ng-required="true">
+    <input type="password" class="form-control" placeholder="Повторите пароль" ng-model="register.pass2" ng-required="true">
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="register.pass1!==register.pass2 || register.disabled">Зарегистрироваться</button>
+</form>

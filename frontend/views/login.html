@@ -1,0 +1,10 @@
+<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'animation-class': 'toast-center'}"></toaster-container>
+<form class="form-signin" role="form" ng-submit="login.login()">
+    <h2 class="form-signin-heading">Вход</h2>
+    <input type="text" class="form-control" placeholder="Имя" ng-model="login.username" ng-required="true" autofocus>
+    <input type="password" class="form-control" placeholder="Пароль" ng-model="login.pass" ng-required="true">
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="login.disabled">Войти</button>
+    <a class="btn btn-lg btn-success btn-block" href="/register" ng-disabled="login.disabled">Регистрация</a>
+
+</form>
