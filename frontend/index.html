@@ -22,22 +22,21 @@
 
 </head>
 
-<body ng-app="APP" ng-cloak>
-<div layout="column" style="height:600px" ng-cloak>
+<body ng-app="APP" ng-cloak ng-controller="IndexCtrl as idx" layout="column">
     <md-toolbar md-scroll-shrink ng-controller="ToolBarCtrl as toolbar">
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings" ng-click="toolbar.toggleSideBar()" hide-gt-md>
                 <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
             </md-button>
             <h3>
-                <span>ЗакуПиська</span>
+                <span ui-sref="index">ЗакуПиська</span>
             </h3>
         </div>
     </md-toolbar>
-    <div layout="row" layout-fill>
+    <div layout="row" flex layout-fill>
         <md-sidenav class="md-sidenav-left"
                     md-component-id="left"
-                    md-is-locked-open="$mdMedia('gt-md')"
+                    md-is-locked-open="$mdMedia('gt-sm')"
                     md-disable-backdrop
                     md-whiteframe="4">
             <md-toolbar layout="row" class="md-theme-indigo">
@@ -46,38 +45,44 @@
 
             <md-content flex>
                 <md-list layout="column">
-                    <md-list-item ng-click="null">
+                    <md-list-item ng-click="idx.closeSideNav()" ui-sref="lists">
                         <md-icon md-font-set="material-icons" class="md-avatar-icon" >assignment</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <p>Покупки</p>
                         </div>
                     </md-list-item>
                     <md-divider ></md-divider>
-                    <md-list-item ng-click="null">
+                    <md-list-item ng-click="idx.closeSideNav()" ui-sref="friends">
                         <md-icon md-font-set="material-icons" class="md-avatar-icon">people</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <p>Друзья</p>
                         </div>
                     </md-list-item>
                     <md-divider ></md-divider>
-                    <md-list-item ng-click="null">
+                    <md-list-item ng-click="idx.closeSideNav()" ui-sref="profile">
                         <md-icon md-font-set="material-icons" class="md-avatar-icon">account_box</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <p>Профиль</p>
                         </div>
                     </md-list-item>
                     <md-divider ></md-divider>
-                    <md-list-item ng-click="null">
+                    <md-list-item ng-click="idx.closeSideNav()" >
                         <md-icon md-font-set="material-icons" class="md-avatar-icon">info</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <p>О программе</p>
                         </div>
                     </md-list-item>
                     <md-divider ></md-divider>
-                    <md-list-item ng-click="null">
+                    <md-list-item ng-click="idx.logout()" ng-if="idx.isAuth()">
                         <md-icon md-font-set="material-icons" class="md-avatar-icon">exit_to_app</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <p>Выйти</p>
+                        </div>
+                    </md-list-item>
+                    <md-list-item ng-click="idx.closeSideNav()" ng-if="!idx.isAuth()" ui-sref="login">
+                        <md-icon md-font-set="material-icons" class="md-avatar-icon">exit_to_app</md-icon>
+                        <div class="md-list-item-text" layout="column">
+                            <p>Войти</p>
                         </div>
                     </md-list-item>
                 </md-list>
@@ -87,7 +92,7 @@
         <md-content flex layout-padding>
             <div class="mainview" ui-view></div>
         </md-content>
-    </div>
+
 </div>
 
 <script src="/js/vendor.min.js"></script>

@@ -1,5 +1,5 @@
 (function() {
-    angular.module('APP', ['ngMaterial', 'ui.router', 'ngResource']).
+    angular.module('APP', ['ngMaterial', 'ui.router', 'ngResource', 'ngMessages']).
         config(config).
         run(run);
 
@@ -64,27 +64,24 @@
 
     run.$inject = ['$rootScope', '$state', 'authService', '$location'];
     function run($rootScope, $state, authService, $location) {
-        // $rootScope.token = $cookies.get('PHPSESSID') || '';
-        // $rootScope.user = angular.copy(window.user);
-        // delete window.user;
-        // $rootScope.$on( '$stateChangeStart', redirectToLogin);
-        //
-        // function redirectToLogin (e, toState  , toParams, fromState, fromParams) {
-        //     var isAuthPage = ['login', 'register'].indexOf(toState.name)>=0;
-        //     if (isAuthPage){
-        //         if ($rootScope.user.authorized) {
-        //             e.preventDefault(); // stop current execution
-        //             $state.go('index');
-        //         }
-        //     } else {
-        //         // now, redirect only not authenticated
-        //         if(!$rootScope.user.authorized) {
-        //             e.preventDefault(); // stop current execution
-        //             $rootScope.redirectURL = $location.url();
-        //             $state.go('login'); // go to login
-        //         }
-        //     }
-        // };
+        $rootScope.$on( '$stateChangeStart', redirectToLogin);
+
+        function redirectToLogin (e, toState  , toParams, fromState, fromParams) {
+            var isAuthPage = ['login', 'register'].indexOf(toState.name)>=0;
+            if (isAuthPage){
+                if (authService.isAuth()) {
+                    e.preventDefault(); // stop current execution
+                    $state.go('index');
+                }
+            } else {
+                // now, redirect only not authenticated
+                if(!authService.isAuth()) {
+                    e.preventDefault(); // stop current execution
+                    $rootScope.redirectURL = $location.url();
+                    $state.go('login'); // go to login
+                }
+            }
+        };
     }
 })();
 

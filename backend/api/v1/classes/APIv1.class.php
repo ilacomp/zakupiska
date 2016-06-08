@@ -19,7 +19,7 @@ class APIv1 extends API
         parent::__construct($request);
         $this->db = DB::getInstance();
 
-        if (isset($this->request['token'])) {
+        if (!empty($this->request['token'])) {
             session_id($this->request['token']);
         }
         session_start();

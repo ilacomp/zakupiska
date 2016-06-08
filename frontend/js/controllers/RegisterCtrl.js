@@ -5,9 +5,9 @@
 
     angular.module('APP').controller("RegisterCtrl", RegisterCtrl);
 
-    RegisterCtrl.$inject = ['$state', '$rootScope', 'authService', 'toaster'];
+    RegisterCtrl.$inject = ['$state', '$rootScope', 'authService', '$mdToast'];
 
-    function RegisterCtrl ($state, $rootScope, authService, toaster) {
+    function RegisterCtrl ($state, $rootScope, authService, $mdToast) {
         var self = this;
         this.username = null;
         this.email = null;
@@ -19,26 +19,23 @@
 
         function register() {
             self.disabled = true;
-            authService.register({username: self.username, email: self.email, pass1: self.pass1, pass2: self.pass2}, function(data){
-                self.disabled = false;
-                if (data.user){
-                    if (data.user.authorized) {
-                        $rootScope.user = data.user;
-                        $rootScope.token = data.token;
-                        if ($rootScope.redirectURL) {
-                            $location.url($rootScope.redirectURL);
-                            delete $rootScope.redirectURL;
-                        } else {
-                            $state.go('index');
-                        }
+            authService.register({username: self.username, email: self.email, pass1: self.pass1, pass2: self.pass2}, successCallback, errorCallback);
 
-                        return;
-                    }
+            function successCallback(){
+                self.disabled = false;
+                if ($rootScope.redirectURL) {
+                    $location.url($rootScope.redirectURL);
+                    delete $rootScope.redirectURL;
+                } else {
+                    $state.go('index');
                 }
-                if (data.error) {
-                    toaster.error("Ошибка", data.error);
-                }
-            });
+            }
+
+            function errorCallback(error){
+                self.disabled = false;
+                $mdToast.showSimple(error);
+            }
+
         };
 
     };

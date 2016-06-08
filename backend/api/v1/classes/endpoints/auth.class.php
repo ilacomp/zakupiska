@@ -26,10 +26,12 @@ class Endpoint extends EndpointAbstract
                 break;
             case 'logout':
                 $this->api->User->logout();
-                return $this->api->User->getUserInfo();
+                return array(
+                    'user' => $this->api->User->getUserInfo()
+                );
                 break;
             case 'register':
-                if ($this->User->register($this->api->args['username'], $this->api->args['email'], $this->api->args['pass1'], $this->api->args['pass2']))
+                if ($this->api->User->register($this->api->args['username'], $this->api->args['email'], $this->api->args['pass1'], $this->api->args['pass2']))
                     return array(
                         'user' => $this->api->User->getUserInfo(),
                         'token' => session_id(),
@@ -41,7 +43,9 @@ class Endpoint extends EndpointAbstract
                 }
             case '':
                 if ($this->api->method == 'GET') {
-                    return $this->api->User->getUserInfo();
+                    return array(
+                        'user' => $this->api->User->getUserInfo()
+                    );
                 }
                 break;
         }

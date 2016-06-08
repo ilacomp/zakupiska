@@ -2,10 +2,10 @@
 (function() {
     angular.module('APP').factory('listService', listService);
 
-    listService.$inject = ['$resource', '$rootScope', 'httpRequestInterceptor'];
+    listService.$inject = ['$resource', 'authService', 'httpRequestInterceptor'];
 
-    function listService($resource, $rootScope, httpRequestInterceptor) {
-        return $resource('/api/v1/lists/:id', {id: '', token: $rootScope.token}, {
+    function listService($resource, authService, httpRequestInterceptor) {
+        return $resource('/api/v1/lists/:id', {id: ''}, {
             query: {method: 'GET', isArray: true, interceptor : {responseError : httpRequestInterceptor.response}},
             put: {method: 'PUT', interceptor : {responseError : httpRequestInterceptor.response}}
         }) ;

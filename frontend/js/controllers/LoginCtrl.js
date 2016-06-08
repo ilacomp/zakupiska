@@ -4,9 +4,9 @@
 (function() {
     angular.module('APP').controller("LoginCtrl",LoginCtrl);
 
-    LoginCtrl.$inject = ['$state', '$rootScope', 'authService', 'toaster', '$location'];
+    LoginCtrl.$inject = ['$state', '$rootScope', 'authService', '$location', '$mdToast'];
 
-    function LoginCtrl($state, $rootScope, authService, toaster, $location) {
+    function LoginCtrl($state, $rootScope, authService, $location, $mdToast) {
         var self = this;
         this.username = null;
         this.pass = null;
@@ -15,25 +15,22 @@
 
         function login() {
             self.disabled = true;
-            authService.login({username: self.username, password: self.pass}, function(data){
+            authService.login({username: self.username, password: self.pass}, successCallback, errorCallback);
+
+            function successCallback(){
                 self.disabled = false;
-                if (data.user){
-                    if (data.user.authorized) {
-                        $rootScope.user = data.user;
-                        $rootScope.token = data.token;
-                        if ($rootScope.redirectURL) {
-                            $location.url($rootScope.redirectURL);
-                            delete $rootScope.redirectURL;
-                        } else {
-                            $state.go('index');
-                        }
-                        return;
-                    }
+                if ($rootScope.redirectURL) {
+                    $location.url($rootScope.redirectURL);
+                    delete $rootScope.redirectURL;
+                } else {
+                    $state.go('index');
                 }
-                if (data.error) {
-                    toaster.error("Ошибка", data.error);
-                }
-            });
+            }
+
+            function errorCallback(error){
+                self.disabled = false;
+                $mdToast.showSimple(error);
+            }
         };
     }
 })();

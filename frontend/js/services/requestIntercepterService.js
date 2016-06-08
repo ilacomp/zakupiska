@@ -11,11 +11,22 @@
                 if (response.status === 403) {
                     var authService = $injector.get('authService');
                     var $state = $injector.get('$state');
-                    $rootScope.user = authService.logout({}, function(){
+                    authService.logout(function(){
                         $state.reload();
                     });
                 }
                 return response;
+            },
+            request: function(config) {
+                var authService = $injector.get('authService');
+                if (config.url.indexOf('/api/')===0 && authService.isAuth()) {
+                    if (config.params) {
+                        config.params.token = authService.getToken();
+                    } else {
+                        config.params = {token: authService.getToken()};
+                    }
+                }
+                return config;
             }
         };
     }

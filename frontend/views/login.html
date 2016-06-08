@@ -1,10 +1,24 @@
-<toaster-container toaster-options="{'time-out': 5000, 'close-button':true, 'animation-class': 'toast-center'}"></toaster-container>
-<form class="form-signin" role="form" ng-submit="login.login()">
-    <h2 class="form-signin-heading">Вход</h2>
-    <input type="text" class="form-control" placeholder="Имя" ng-model="login.username" ng-required="true" autofocus>
-    <input type="password" class="form-control" placeholder="Пароль" ng-model="login.pass" ng-required="true">
-    <br>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="login.disabled">Войти</button>
-    <a class="btn btn-lg btn-success btn-block" href="/register" ng-disabled="login.disabled">Регистрация</a>
+<div layout="column" ng-cloak layout-padding>
+    <form name="loginForm" ng-submit="login.login()" novalidate>
+        <h2 class="form-signin-heading">Вход</h2>
+        <md-input-container class="md-block">
+            <label>Имя</label>
+            <input required name="username" ng-model="login.username">
+            <div ng-messages="loginForm.username.$error">
+                <div ng-message="required">Заполните поле</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Пароль</label>
+            <input type="password" required name="pass" ng-model="login.pass">
+            <div ng-messages="loginForm.pass.$error">
+                <div ng-message="required">Заполните поле</div>
+            </div>
+        </md-input-container>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-button class="md-raised md-primary" ng-disabled="login.disabled" type="submit">Войти</md-button>
+            <md-button class="md-raised" ng-disabled="login.disabled" ui-sref="register">Регистрация</md-button>
+        </section>
 
-</form>
+    </form>
+</div>

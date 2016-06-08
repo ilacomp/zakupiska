@@ -4,13 +4,19 @@
 (function() {
     angular.module('APP').controller("IndexCtrl", IndexCtrl);
 
-    IndexCtrl.$inject = ['authService', '$state', '$rootScope'];
+    IndexCtrl.$inject = ['authService', '$state', '$mdSidenav'];
 
-    function IndexCtrl (authService, $state, $rootScope) {
+    function IndexCtrl (authService, $state, $mdSidenav) {
         this.logout = logout;
+        this.closeSideNav = closeSideNav;
+        this.isAuth = authService.isAuth;
 
+        function closeSideNav    (){
+            $mdSidenav('left').close();
+        }
         function logout(){
-            $rootScope.user = authService.logout({}, function(){
+            closeSideNav();
+            authService.logout(function(){
                 $state.reload();
             });
         }
