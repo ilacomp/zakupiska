@@ -1,13 +1,16 @@
-<md-list>
-    <md-list-item ng-repeat="item in lists.list" href="/lists/{{item.id_list}}">
-        <div class="list-color pull-left" style="background-color: {{item.color}}">&nbsp;</div>
-        {{item.title}}
-    </md-list-item>
-</md-list>
+<div layout="column" ng-cloak>
+    <md-list>
+        <md-list-item ng-repeat="item in lists.list" href="/lists/{{item.id_list}}">
+            <div class="list-color pull-left" style="background-color: {{item.color}}">&nbsp;</div>
+            {{item.title}}
+        </md-list-item>
+    </md-list>
 
-<div ng-hide="lists.list.length>0" class="text-center">
-    Список пуст
+    <div ng-hide="lists.list.length>0">
+        Список пуст
+    </div>
+
+    <md-button class="md-fab md-fab-bottom-right" aria-label="Новый список" ui-sref="newlist">
+        <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
 </div>
-<md-button class="md-fab md-fab-bottom-right" aria-label="Новый список" ui-sref="newlist">
-    <md-icon md-font-set="material-icons">add</md-icon>
-</md-button>

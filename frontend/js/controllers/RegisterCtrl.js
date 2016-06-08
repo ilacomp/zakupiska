@@ -5,9 +5,9 @@
 
     angular.module('APP').controller("RegisterCtrl", RegisterCtrl);
 
-    RegisterCtrl.$inject = ['$state', '$rootScope', 'authService', '$mdToast'];
+    RegisterCtrl.$inject = ['$state', '$rootScope', '$location', 'authService', '$mdToast'];
 
-    function RegisterCtrl ($state, $rootScope, authService, $mdToast) {
+    function RegisterCtrl ($state, $rootScope, $location, authService, $mdToast) {
         var self = this;
         this.username = null;
         this.email = null;

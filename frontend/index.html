@@ -66,14 +66,14 @@
                         </div>
                     </md-list-item>
                     <md-divider ></md-divider>
-                    <md-list-item ng-click="idx.closeSideNav()" >
+                    <md-list-item ng-click="idx.closeSideNav()" ui-sref="about">
                         <md-icon md-font-set="material-icons" class="md-avatar-icon">info</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <p>О программе</p>
                         </div>
                     </md-list-item>
                     <md-divider ></md-divider>
-                    <md-list-item ng-click="idx.logout()" ng-if="idx.isAuth()">
+                    <md-list-item ng-click="idx.logout()" ng-if="idx.isAuth()" ui-sref="login">
                         <md-icon md-font-set="material-icons" class="md-avatar-icon">exit_to_app</md-icon>
                         <div class="md-list-item-text" layout="column">
                             <p>Выйти</p>
@@ -92,8 +92,7 @@
         <md-content flex layout-padding>
             <div class="mainview" ui-view></div>
         </md-content>
-
-</div>
+    </div>
 
 <script src="/js/vendor.min.js"></script>
 <script src="/js/main.min.js"></script>

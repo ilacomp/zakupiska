@@ -1,3 +1,6 @@
 .md-sidenav-left .md-avatar-icon {
     margin-left: 0;
 }
+.md-button.md-fab.md-fab-bottom-right {
+    position: fixed;
+}
