@@ -10,10 +10,14 @@
         </md-input-container>
         <md-input-container class="md-block">
             <label>Цвет</label>
-            <input type="color" required name="color" ng-model="newlist.color">
-            <div ng-messages="newListForm.color.$error">
-                <div ng-message="required">Заполните поле</div>
-            </div>
+            <div md-color-picker
+                 ng-model="newlist.colorVar.color"
+                 md-color-alpha-channel="false"
+                 md-color-spectrum="false"
+                 md-color-sliders="false"
+                 md-color-material-palette="false"
+                 md-color-clear-button="false"
+            ></div>
         </md-input-container>
         <section layout="row" layout-align="center center" layout-wrap>
             <md-button class="md-raised md-primary" ng-disabled="!newListForm.$valid || $newlist.disabled" type="submit">Создать</md-button>

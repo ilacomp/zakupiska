@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `lists`;
 CREATE TABLE IF NOT EXISTS `lists` (
   `id_list` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
-  `color` varchar(6) NOT NULL DEFAULT 'ffffff',
+  `color` varchar(7) NOT NULL DEFAULT 'ffffff',
   `dat` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_list`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

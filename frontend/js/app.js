@@ -1,5 +1,5 @@
 (function() {
-    angular.module('APP', ['ngMaterial', 'ui.router', 'ngResource', 'ngMessages']).
+    angular.module('APP', ['ngMaterial', 'ui.router', 'ngResource', 'ngMessages', 'mdColorPicker']).
         config(config).
         run(run);
 
@@ -62,9 +62,10 @@
             );
     }
 
-    run.$inject = ['$rootScope', '$state', 'authService', '$location'];
-    function run($rootScope, $state, authService, $location) {
+    run.$inject = ['$rootScope', '$state', 'authService', '$location', '$templateCache'];
+    function run($rootScope, $state, authService, $location, $templateCache) {
         $rootScope.$on( '$stateChangeStart', redirectToLogin);
+        $templateCache.put("mdColorPickerDialog.tpl.html","<md-dialog class=\"md-color-picker-dialog\">\n	<div md-color-picker-container\n		value=\"value\"\n		default=\"{{defaultValue}}\"\n		random=\"{{random}}\"\n		ok=\"ok\"\n		md-color-alpha-channel=\"mdColorAlphaChannel\"\n		md-color-spectrum=\"mdColorSpectrum\"\n		md-color-sliders=\"mdColorSliders\"\n		md-color-generic-palette=\"mdColorGenericPalette\"\n		md-color-material-palette=\"mdColorMaterialPalette\"\n		md-color-history=\"mdColorHistory\"\n		md-color-default-tab=\"mdColorDefaultTab\"\n	></div>\n	<md-actions layout=\"row\">\n		<md-button class=\"md-mini\" ng-click=\"close()\" style=\"width: 50%;\">Отмена</md-button>\n		<md-button class=\"md-mini\" ng-click=\"ok()\" style=\"width: 50%;\">Выбрать</md-button>\n	</md-actions>\n</md-dialog>\n");
 
         function redirectToLogin (e, toState  , toParams, fromState, fromParams) {
             var isAuthPage = ['login', 'register'].indexOf(toState.name)>=0;
