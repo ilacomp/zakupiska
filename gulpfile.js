@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     minifyCSS = require('gulp-minify-css'),
     gulpif = require('gulp-if'),
     del = require('del'),
-    replace = require('gulp-replace');
+    replace = require('gulp-replace'),
+    debug = require('gulp-debug');
 // var less = require('gulp-less');
 // var sourcemaps = require('gulp-sourcemaps');
 
@@ -16,8 +17,8 @@ var paths = {
     asis: ['frontend/**/*.{html,json,jpg,png,gif,svg}'],
     css: 'frontend/css/**/*.css'
 };
-var filterJS = gulpFilter(['**/*.js', '!**/*.min.js'], {restore:true});
-var filterCSS = gulpFilter(['**/*.css', '!**/*.min.css'], {restore:true});
+var filterJS = gulpFilter(['**/*.js'], {restore:true});
+var filterCSS = gulpFilter(['**/*.css'], {restore:true});
 
 // Clean public folder
 gulp.task('clean', function() {
@@ -92,5 +93,11 @@ gulp.task('css', ['clean'], function() {
         .pipe(gulp.dest('www/css'));
 });
 
+gulp.task('bower', function() {
+    return gulp.src(mainBowerFiles())
+        .pipe(debug())
+        .pipe(filterJS)
+        .pipe(debug());
+});
 gulp.task('build-dev', ['backend', 'vendor-dev', 'asis', 'css-dev', 'scripts-dev']);
 gulp.task('build', ['backend', 'vendor', 'asis', 'css', 'scripts']);

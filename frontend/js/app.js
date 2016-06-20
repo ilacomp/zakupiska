@@ -38,20 +38,28 @@
                     controllerAs: "lists"
                 }
             )
-            .state("list_detail",
-                {
-                    url: "/lists/:id_list",
-                    templateUrl: "views/lists.details.html",
-                    controller: "ListDetailCtrl",
-                    controllerAs: "listdetail"
-                }
-            )
             .state("newlist",
                 {
                     url: "/newlist",
                     templateUrl: "views/newlist.html",
                     controller: "NewListCtrl",
                     controllerAs: "newlist"
+                }
+            )
+            .state("list_items",
+                {
+                    url: "/lists/:id_list",
+                    templateUrl: "views/lists.items.html",
+                    controller: "ListItemsCtrl",
+                    controllerAs: "listitems"
+                }
+            )
+            .state("newitem",
+                {
+                    url: "/lists/:id_list/newitem",
+                    templateUrl: "views/newitem.html",
+                    controller: "NewItemCtrl",
+                    controllerAs: "newitem"
                 }
             )
             .state("profile",

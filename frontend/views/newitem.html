@@ -1,0 +1,25 @@
+<div layout="column" ng-cloak>
+    <form id="newItemForm" name="newItemForm" ng-submit="newitem.add()" novalidate>
+        <h2>Новый товар</h2>
+        <md-input-container class="md-block">
+            <label>Название товара</label>
+            <input id="new-item-title" name="title" ng-model="newitem.product.title" autofocus ng-maxlength="200" required>
+            <div ng-messages="newItemForm.title.$error">
+                <div ng-message="required">Заполните поле</div>
+                <div ng-message="maxlength">Введите более короткое название</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Количество</label>
+            <input name="amount" ng-model="newitem.product.amount" ng-maxlength="45">
+            <div ng-messages="newItemForm.amount.$error">
+                <div ng-message="maxlength">Введите более короткое количество</div>
+            </div>
+        </md-input-container>
+        <section layout="column" layout-align="center center" layout-wrap>
+            <md-button class="md-raised md-primary" ng-disabled="!newItemForm.$valid || newitem.disabled" type="submit">Добавить и продолжить</md-button>
+            <md-button class="md-raised " ng-disabled="!newItemForm.$valid || newitem.disabled" ng-click="newitem.addReturn();">Добавить и вернуться</md-button>
+        </section>
+
+    </form>
+</div>

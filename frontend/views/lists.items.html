@@ -1,0 +1,19 @@
+<div layout="column" ng-cloak>
+    <md-list>
+        <md-list-item ng-repeat="item in listitems.items">
+            <p>{{item.title}}</p>
+            <md-button class="md-icon-button" ng-click="listitems.showBottomSheet(item)">
+                <md-icon md-font-set="material-icons">more_vert</md-icon>
+            </md-button>
+            <md-divider ></md-divider>
+        </md-list-item>
+    </md-list>
+
+    <div ng-hide="listitems.items.length>0">
+        Список пуст
+    </div>
+
+    <md-button class="md-fab md-fab-bottom-right" aria-label="Добавить товар" ui-sref="newitem({ id_list: listitems.id_list })">
+        <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
+</div>

@@ -1,0 +1,17 @@
+<md-bottom-sheet class="md-list" ng-cloak>
+    <md-subheader>{{bs.item.title}}</md-subheader>
+    <md-list>
+        <md-list-item>
+            <md-button ng-click="bs.editItem()" class="md-list-item-content" >
+                <md-icon md-font-set="material-icons">mode_edit</md-icon>
+                <span class="md-inline-list-icon-label">Изменить</span>
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="bs.deleteItem()" class="md-list-item-content" >
+                <md-icon md-font-set="material-icons">delete</md-icon>
+                <span class="md-inline-list-icon-label">Удалить</span>
+            </md-button>
+        </md-list-item>
+    </md-list>
+</md-bottom-sheet>

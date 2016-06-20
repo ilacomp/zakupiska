@@ -20,7 +20,7 @@
                 if (data.error) {
                     $mdToast.showSimple(data.error);
                 } else {
-                    $state.go('list_detail', {id_list: data.id_list});
+                    $state.go('list_items', {id_list: data.id_list});
                 }
             });
 
