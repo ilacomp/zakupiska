@@ -1,4 +1,14 @@
-<div layout="column" ng-cloak>
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Lists" ui-sref="lists">
+            <md-icon md-font-set="material-icons">keyboard_arrow_left</md-icon>
+        </md-button>
+        <h3>
+            <span ui-sref="index">Товары</span>
+        </h3>
+    </div>
+</md-toolbar>
+<md-content flex layout-padding id="content" layout="column">
     <md-list>
         <md-list-item ng-repeat="item in listitems.items">
             <p>{{item.title}}</p>
@@ -12,8 +22,7 @@
     <div ng-hide="listitems.items.length>0">
         Список пуст
     </div>
-
-    <md-button class="md-fab md-fab-bottom-right" aria-label="Добавить товар" ui-sref="newitem({ id_list: listitems.id_list })">
-        <md-icon md-font-set="material-icons">add</md-icon>
-    </md-button>
-</div>
+</md-content>
+<md-button class="md-fab md-fab-bottom-right" aria-label="Добавить товар" ui-sref="newitem({ id_list: listitems.id_list })">
+    <md-icon md-font-set="material-icons">add</md-icon>
+</md-button>

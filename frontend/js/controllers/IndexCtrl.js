@@ -10,7 +10,12 @@
         this.logout = logout;
         this.closeSideNav = closeSideNav;
         this.isAuth = authService.isAuth;
+        this.toggleSideBar = toggleSideBar;
 
+        function toggleSideBar (){
+            $mdSidenav('left').toggle();
+        }
+        
         function closeSideNav    (){
             $mdSidenav('left').close();
         }

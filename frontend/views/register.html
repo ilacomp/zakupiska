@@ -1,4 +1,11 @@
-<div layout="column" ng-cloak>
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <h3>
+            <span ui-sref="index">Регистрация</span>
+        </h3>
+    </div>
+</md-toolbar>
+<md-content flex layout-padding id="content" layout="column">
     <form name="registerForm" ng-submit="register.register()" novalidate>
         <h2 class="form-signin-heading">Регистрация</h2>
         <md-input-container class="md-block">
@@ -35,4 +42,4 @@
         </section>
 
     </form>
-</div>
+</md-content>

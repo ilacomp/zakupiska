@@ -8,3 +8,11 @@
 #newItemForm .md-button {
     width: 230px;
 }
+
+.md-color-picker-input {
+    display: none !important;
+}
+.md-color-picker-preview {
+    width: 100% !important;
+    border-radius: 8px !important;
+}

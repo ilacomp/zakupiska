@@ -1,3 +1,93 @@
-<div class="row">
-    Главная страница приложения. Тут что-нить может быть.
+<div layout="row" flex>
+    <md-sidenav class="md-sidenav-left"
+                md-component-id="left"
+                md-is-locked-open="$mdMedia('gt-sm')"
+                md-disable-backdrop
+                md-whiteframe="4">
+        <md-toolbar class="md-theme-indigo">
+            <h1 class="md-toolbar-tools">Меню</h1>
+        </md-toolbar>
+        <md-content flex>
+            <md-list layout="column">
+                <md-list-item ng-click="idx.closeSideNav()" ui-sref="lists">
+                    <md-icon md-font-set="material-icons" class="md-avatar-icon" >assignment</md-icon>
+                    <div class="md-list-item-text" layout="column">
+                        <p>Покупки</p>
+                    </div>
+                </md-list-item>
+                <md-divider ></md-divider>
+                <md-list-item ng-click="idx.closeSideNav()" ui-sref="friends">
+                    <md-icon md-font-set="material-icons" class="md-avatar-icon">people</md-icon>
+                    <div class="md-list-item-text" layout="column">
+                        <p>Друзья</p>
+                    </div>
+                </md-list-item>
+                <md-divider ></md-divider>
+                <md-list-item ng-click="idx.closeSideNav()" ui-sref="profile">
+                    <md-icon md-font-set="material-icons" class="md-avatar-icon">account_box</md-icon>
+                    <div class="md-list-item-text" layout="column">
+                        <p>Профиль</p>
+                    </div>
+                </md-list-item>
+                <md-divider ></md-divider>
+                <md-list-item ng-click="idx.closeSideNav()" ui-sref="about">
+                    <md-icon md-font-set="material-icons" class="md-avatar-icon">info</md-icon>
+                    <div class="md-list-item-text" layout="column">
+                        <p>О программе</p>
+                    </div>
+                </md-list-item>
+                <md-divider ></md-divider>
+                <md-list-item ng-click="idx.logout()" ng-if="idx.isAuth()" ui-sref="login">
+                    <md-icon md-font-set="material-icons" class="md-avatar-icon">exit_to_app</md-icon>
+                    <div class="md-list-item-text" layout="column">
+                        <p>Выйти</p>
+                    </div>
+                </md-list-item>
+                <md-list-item ng-click="idx.closeSideNav()" ng-if="!idx.isAuth()" ui-sref="login">
+                    <md-icon md-font-set="material-icons" class="md-avatar-icon">exit_to_app</md-icon>
+                    <div class="md-list-item-text" layout="column">
+                        <p>Войти</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </md-sidenav>
+    <div flex layout="column">
+        <md-toolbar md-scroll-shrink>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="idx.toggleSideBar()" hide-gt-md>
+                    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+                </md-button>
+                <h3>
+                    <span ui-sref="index">ЗакуПиська</span>
+                </h3>
+            </div>
+        </md-toolbar>
+        <md-content flex layout="row">
+            <md-content flex layout-padding id="content">
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+                <h1>Тут какой-то текст дурацкий</h1>
+            </md-content>
+        </md-content>
+    </div>
 </div>
+

@@ -95,7 +95,7 @@ gulp.task('css', ['clean'], function() {
 
 gulp.task('bower', function() {
     return gulp.src(mainBowerFiles())
-        .pipe(debug())
+        //.pipe(debug())
         .pipe(filterJS)
         .pipe(debug());
 });

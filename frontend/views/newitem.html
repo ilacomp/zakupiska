@@ -1,6 +1,15 @@
-<div layout="column" ng-cloak>
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Lists" ng-click="newitem.goBack()">
+            <md-icon md-font-set="material-icons">keyboard_arrow_left</md-icon>
+        </md-button>
+        <h3>
+            <span ui-sref="index">Новый товар</span>
+        </h3>
+    </div>
+</md-toolbar>
+<md-content flex layout-padding id="content" layout="column">
     <form id="newItemForm" name="newItemForm" ng-submit="newitem.add()" novalidate>
-        <h2>Новый товар</h2>
         <md-input-container class="md-block">
             <label>Название товара</label>
             <input id="new-item-title" name="title" ng-model="newitem.product.title" autofocus ng-maxlength="200" required>
@@ -22,4 +31,4 @@
         </section>
 
     </form>
-</div>
+</md-content>

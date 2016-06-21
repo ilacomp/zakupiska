@@ -12,6 +12,8 @@
             .state("index", {
                 url: "/",
                 templateUrl: "views/main.html",
+                controller: "IndexCtrl",
+                controllerAs: "idx"
                 }
             )
             .state("login",

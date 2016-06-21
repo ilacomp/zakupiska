@@ -17,6 +17,7 @@
         this.id_list = $state.params.id_list;
         this.add = add;
         this.addReturn = addReturn;
+        this.goBack = goBack;
 
         function add(){
             self.disabled = true;
@@ -40,11 +41,13 @@
                 if (data.error) {
                     $mdToast.showSimple(data.error);
                 } else {
-                    $state.go('list_items', {id_list: self.id_list});
+                    goBack();
                 }
             });
-
         }
 
+        function goBack() {
+            $state.go('list_items', {id_list: self.id_list});
+        }
     };
 })();

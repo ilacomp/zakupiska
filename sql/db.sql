@@ -55,3 +55,15 @@ CREATE TABLE IF NOT EXISTS `user_lists` (
 ALTER TABLE `user_lists`
   ADD CONSTRAINT `user_lists_ibfk_4` FOREIGN KEY (`id_list`) REFERENCES `lists` (`id_list`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `user_lists_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+CREATE TABLE items
+(
+  id_item INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  id_list INT(11) NOT NULL,
+  title VARCHAR(200),
+  amount VARCHAR(45),
+  checked TINYINT(1) DEFAULT '0' NOT NULL,
+  CONSTRAINT id_list_fk FOREIGN KEY (id_list) REFERENCES lists (id_list)
+);
+CREATE INDEX checked_idx ON items (checked);
+CREATE INDEX id_list_idx ON items (id_list);

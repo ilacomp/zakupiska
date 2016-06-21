@@ -1,6 +1,12 @@
-<div layout="column" ng-cloak>
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <h3>
+            <span ui-sref="index">Вход</span>
+        </h3>
+    </div>
+</md-toolbar>
+<md-content flex layout-padding id="content" layout="column">
     <form name="loginForm" ng-submit="login.login()" novalidate>
-        <h2 class="form-signin-heading">Вход</h2>
         <md-input-container class="md-block">
             <label>Имя</label>
             <input required name="username" ng-model="login.username">
@@ -21,4 +27,4 @@
         </section>
 
     </form>
-</div>
+</md-content>

@@ -21,29 +21,16 @@
             });
 
             function ItemsSheetController ($mdBottomSheet, $mdToast, listItemsService) {
-                var vm = this;
-                this.item = self.selectedItem;
                 this.deleteItem = deleteItem;
-
+                this.item = self.selectedItem;
+                var selectedItemIndex = self.items.indexOf(self.selectedItem);
                 function deleteItem() {
                     $mdBottomSheet.hide();
-                    // listItemsService.remove({id_list: self.id_list, id_item: vm.item.id_item} , function(data){
-                    //     if (data.error) {
-                    //         $mdToast.showSimple(data.error);
-                    //     } else {
-                    //         debugger;
-                    //         self.items.query();
-                    //     }
-                    // });
-                    vm.item.$remove({id_list: vm.item.id_list, id_item: vm.item.id_item}, function(data){
+                    self.selectedItem.$remove({id_list: self.selectedItem.id_list, id_item: self.selectedItem.id_item}, function(data){
                         if (data.error) {
                             $mdToast.showSimple(data.error);
                         } else {
-                            delete vm.item;
-                            console.log(self.items);
-                            debugger;
-                            // debugger;
-                            // self.items.$query();
+                            self.items.splice(selectedItemIndex, 1);
                         }
                     });
 
