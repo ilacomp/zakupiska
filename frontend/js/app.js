@@ -1,5 +1,5 @@
 (function() {
-    angular.module('APP', ['ngMaterial', 'ui.router', 'ngResource', 'ngMessages', 'mdColorPicker']).
+    angular.module('APP', ['ngMaterial', 'ui.router', 'ngResource', 'ngMessages']).
         config(config).
         run(run);
 

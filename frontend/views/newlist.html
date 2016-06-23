@@ -1,7 +1,7 @@
 <md-toolbar md-scroll-shrink>
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Lists" ui-sref="lists">
-            <md-icon md-font-set="material-icons">keyboard_arrow_left</md-icon>
+            <md-icon md-font-set="material-icons">keyboard_backspace</md-icon>
         </md-button>
         <h3>
             <span ui-sref="index">Новый список</span>
@@ -18,16 +18,8 @@
             </div>
         </md-input-container>
         <md-input-container class="md-block">
-            <label>Цвет</label><br>
-            <div md-color-picker
-                 ng-model="newlist.colorVar.color"
-                 md-color-alpha-channel="false"
-                 md-color-sliders="false"
-                 md-color-material-palette="false"
-                 md-color-clear-button="false"
-                 open-on-input="true"
-                 md-color-default-tab="0"
-            ></div>
+            <label>Цвет</label>
+            <input type="color" required name="color" ng-model="newlist.color">
         </md-input-container>
         <section layout="row" layout-align="center center" layout-wrap>
             <md-button class="md-raised md-primary" ng-disabled="!newListForm.$valid || newlist.disabled" type="submit">Создать</md-button>
