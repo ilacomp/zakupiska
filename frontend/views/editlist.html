@@ -3,26 +3,26 @@
         <md-button class="md-icon-button" aria-label="Lists" ui-sref="lists">
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
         </md-button>
-        <h3>
-            <span ui-sref="index">Новый список</span>
+        <h3 flex class="overflow-text">
+            <span ui-sref="index" ng-bind="editlist.list.title">Список</span>
         </h3>
     </div>
 </md-toolbar>
 <md-content flex layout-padding id="content" layout="column">
-    <form name="newListForm" ng-submit="newlist.add()" novalidate>
+    <form name="editListForm" ng-submit="editlist.save()" novalidate>
         <md-input-container class="md-block">
             <label>Название списка</label>
-            <input required name="title" ng-model="newlist.title" autofocus>
-            <div ng-messages="newListForm.title.$error">
+            <input required name="title" ng-model="editlist.list.title" autofocus>
+            <div ng-messages="editListForm.title.$error">
                 <div ng-message="required">Заполните поле</div>
             </div>
         </md-input-container>
         <md-input-container class="md-block">
             <label>Цвет</label>
-            <input type="color" required name="color" ng-model="newlist.color">
+            <input type="color" required name="color" ng-model="editlist.list.color">
         </md-input-container>
         <section layout="row" layout-align="center center" layout-wrap>
-            <md-button class="md-raised md-primary" ng-disabled="!newListForm.$valid || newlist.disabled" type="submit">Создать</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="!editListForm.$valid || editlist.disabled" type="submit">Сохранить</md-button>
         </section>
 
     </form>

@@ -20,3 +20,20 @@ body {
     width: 100% !important;
     border-radius: 8px !important;
 }
+
+md-toolbar.light {
+    color: rgba(0,0,0,0.87);
+}
+
+md-toolbar.light md-icon {
+    color: rgba(0,0,0,0.87);
+}
+
+.overflow-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.list-color {
+    margin-right: 10px;
+}

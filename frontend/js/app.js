@@ -48,6 +48,14 @@
                     controllerAs: "newlist"
                 }
             )
+            .state("editlist",
+                {
+                    url: "/editlist/:id_list",
+                    templateUrl: "views/editlist.html",
+                    controller: "EditListCtrl",
+                    controllerAs: "editlist"
+                }
+            )
             .state("list_items",
                 {
                     url: "/lists/:id_list",
