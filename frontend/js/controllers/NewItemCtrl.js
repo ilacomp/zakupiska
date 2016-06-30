@@ -18,6 +18,12 @@
         this.add = add;
         this.addReturn = addReturn;
         this.goBack = goBack;
+        activate();
+
+        function activate() {
+            var element = $window.document.getElementById('new-item-title');
+            if(element) element.focus();
+        }
 
         function add(){
             self.disabled = true;
@@ -27,8 +33,7 @@
                     $mdToast.showSimple(data.error);
                 } else {
                     self.product = angular.copy(defaultProduct);
-                    var element = $window.document.getElementById('new-item-title');
-                    if(element) element.focus();
+                    activate();
                 }
             });
 

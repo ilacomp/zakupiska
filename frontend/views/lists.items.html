@@ -11,24 +11,20 @@
 <md-content flex layout-padding id="content" layout="column">
     <md-list>
         <div ng-show="buyItems.length>0">
-            <md-subheader class="md-no-sticky" >Купить</md-subheader>
             <md-list-item ng-repeat="item in buyItems = (listitems.items | filter: {checked: '0'})" ng-click="listitems.checkItem(item)">
                 <p>{{item.title}}</p>
                 <md-button class="md-icon-button" ng-click="listitems.showBottomSheet(item, $event)">
                     <md-icon md-font-set="material-icons">more_vert</md-icon>
                 </md-button>
-                <md-divider ></md-divider>
             </md-list-item>
         </div>
         <div ng-show="buyedItems.length>0" class="buyed">
-            <md-divider></md-divider>
             <md-subheader class="md-no-sticky">Куплено</md-subheader>
             <md-list-item ng-repeat="item in  buyedItems = (listitems.items | filter: {checked: '1'})" ng-click="listitems.checkItem(item)">
                 <p>{{item.title}}</p>
                 <md-button class="md-icon-button" ng-click="listitems.showBottomSheet(item, $event)">
                     <md-icon md-font-set="material-icons">more_vert</md-icon>
                 </md-button>
-                <md-divider ></md-divider>
             </md-list-item>
         </div>
     </md-list>

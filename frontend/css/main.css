@@ -33,7 +33,85 @@ md-toolbar.light md-icon {
 .list-color {
     margin-right: 10px;
 }
+
+.buyed {
+    margin-top: 20px;
+}
+
 .buyed md-list-item{
     color: lightgray;
     text-decoration: line-through;
+}
+
+/* Animations */
+
+.mainview {
+    position: relative;
+}
+.mainview.ng-enter {
+    -webkit-animation: 0.2s fade-in;
+    -moz-animation: 0.2s fade-in;
+    -o-animation: 0.2s fade-in;
+    animation: 0.2s fade-in;
+    position: relative;
+}
+
+.mainview.ng-leave {
+    opacity: 0;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@-moz-keyframes fade-in {
+    from { opacity: 0;}
+    to { opacity: 1;}
+}
+@-webkit-keyframes fade-in {
+    from { opacity: 0;}
+    to { opacity: 1;}
+}
+
+@keyframes fade-out {
+    from { opacity: 1;}
+    to { opacity: 0;}
+}
+@-moz-keyframes fade-out {
+    from { opacity: 1;}
+    to { opacity: 0;}
+}
+@-webkit-keyframes fade-out {
+    from { opacity: 1;}
+    to { opacity: 0;}
+}
+
+
+md-list-item.ng-enter,
+md-list-item.ng-leave,
+md-list-item.ng-move {
+    -webkit-transition: 0.2s linear all;
+    transition: 0.2s linear all;
+    position:relative;
+}
+
+md-list-item.ng-enter {
+    opacity:0;
+}
+md-list-item.ng-enter.ng-enter-active {
+    opacity:1;
+}
+
+md-list-item.ng-leave {
+    opacity:1;
+}
+md-list-item.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+md-list-item.ng-move {
+    opacity: 0.5;
+}
+md-list-item.ng-move.ng-move-active {
+    opacity: 1;
 }
