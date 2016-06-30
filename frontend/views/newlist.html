@@ -8,22 +8,22 @@
         </h3>
     </div>
 </md-toolbar>
-<md-content flex id="content" layout="column">
+<md-content flex id="content" layout="column" layout-align="center center">
     <form name="newListForm" ng-submit="newlist.add()" novalidate>
-        <md-input-container class="md-block">
-            <label>Название списка</label>
-            <input required name="title" ng-model="newlist.title" autofocus>
-            <div ng-messages="newListForm.title.$error">
-                <div ng-message="required">Заполните поле</div>
-            </div>
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label>Цвет</label>
-            <input type="color" required name="color" ng-model="newlist.color">
-        </md-input-container>
+        <section layout="row">
+            <md-input-container class="md-block">
+                <label>Название списка</label>
+                <input required name="title" ng-model="newlist.title" autofocus>
+                <div ng-messages="newListForm.title.$error">
+                    <div ng-message="required">Заполните поле</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <input type="color" required name="color" ng-model="newlist.color">
+            </md-input-container>
+        </section>
         <section layout="row" layout-align="center center" layout-wrap>
             <md-button class="md-raised md-primary" ng-disabled="!newListForm.$valid || newlist.disabled" type="submit">Создать</md-button>
         </section>
-
     </form>
 </md-content>
