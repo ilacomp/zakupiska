@@ -1,19 +1,19 @@
 <md-toolbar md-scroll-shrink>
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Home" ui-sref="index">
-            <md-icon md-font-set="material-icons">keyboard_backspace</md-icon>
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
         </md-button>
         <h3>
-            <span ui-sref="index">Списки покупок</span>
+            <span>Списки покупок</span>
         </h3>
     </div>
 </md-toolbar>
 <md-content flex layout-padding id="content" layout="column">
     <md-list>
-        <md-list-item ng-repeat="item in lists.list">
-            <div class="list-color pull-left" style="background-color: {{item.color}}">&nbsp;</div>
-            <p ui-sref="list_items({id_list: item.id_list})" class="md-ink-ripple">{{item.title}}</p>
-            <md-button class="md-icon-button" ng-click="lists.showBottomSheet(item)">
+        <md-list-item ng-repeat="item in lists.list" ng-click="lists.gotoList(item.id_list)">
+            <div class="list-color" style="background-color: {{item.color}}">&nbsp;</div>
+            <p flex class="overflow-text">{{item.title}}</p>
+            <md-button class="md-icon-button" ng-click="lists.showBottomSheet(item, $event)">
                 <md-icon md-font-set="material-icons">more_vert</md-icon>
             </md-button>
             <md-divider ></md-divider>
