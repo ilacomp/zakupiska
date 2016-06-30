@@ -10,7 +10,7 @@ body {
 }
 
 #newItemForm .md-button {
-    width: 230px;
+    /*width: 230px;*/
 }
 
 input[type=color] {
@@ -32,4 +32,8 @@ md-toolbar.light md-icon {
 }
 .list-color {
     margin-right: 10px;
+}
+.buyed md-list-item{
+    color: lightgray;
+    text-decoration: line-through;
 }

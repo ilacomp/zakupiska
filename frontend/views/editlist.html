@@ -8,19 +8,21 @@
         </h3>
     </div>
 </md-toolbar>
-<md-content flex layout-padding id="content" layout="column">
+<md-content id="content" flex layout-padding layout="column" layout-align="top center">
     <form name="editListForm" ng-submit="editlist.save()" novalidate>
-        <md-input-container class="md-block">
-            <label>Название списка</label>
-            <input required name="title" ng-model="editlist.list.title" autofocus>
-            <div ng-messages="editListForm.title.$error">
-                <div ng-message="required">Заполните поле</div>
-            </div>
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label>Цвет</label>
-            <input type="color" required name="color" ng-model="editlist.list.color">
-        </md-input-container>
+        <section layout="row">
+            <md-input-container class="md-block">
+                <label>Название списка</label>
+                <input required name="title" ng-model="editlist.list.title" autofocus>
+                <div ng-messages="editListForm.title.$error">
+                    <div ng-message="required">Заполните поле</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Цвет</label>
+                <input type="color" required name="color" ng-model="editlist.list.color">
+            </md-input-container>
+        </section>
         <section layout="row" layout-align="center center" layout-wrap>
             <md-button class="md-raised md-primary" ng-disabled="!editListForm.$valid || editlist.disabled" type="submit">Сохранить</md-button>
         </section>

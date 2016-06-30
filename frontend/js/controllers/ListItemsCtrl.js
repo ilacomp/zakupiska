@@ -11,6 +11,7 @@
         this.id_list = $state.params.id_list;
         this.lightToolbar = false;
         this.showBottomSheet = showBottomSheet;
+        this.checkItem = checkItem;
         listItemsService.get({id_list: this.id_list}, onLoad);
 
         function onLoad(data){
@@ -32,7 +33,8 @@
                 > 3 * 256 / 2;
         }
 
-        function showBottomSheet(item) {
+        function showBottomSheet(item, evt) {
+            evt.stopPropagation();
             self.selectedItem = item;
             $mdBottomSheet.show({
                 templateUrl   : 'views/bottom-sheet-items.html',
@@ -58,5 +60,10 @@
                 };
             }
         }
+
+        function checkItem(item){
+            item.checked = item.checked=='0'? '1' : '0';
+        }
+
     };
 })();
