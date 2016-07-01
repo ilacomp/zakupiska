@@ -10,7 +10,7 @@
 </md-toolbar>
 <md-content flex layout-padding id="content" layout="column">
     <md-list>
-        <div ng-show="buyItems.length>0">
+        <div>
             <md-list-item ng-repeat="item in buyItems = (listitems.items | filter: {checked: '0'})" ng-click="listitems.checkItem(item)">
                 <p>{{item.title}}</p>
                 <md-button class="md-icon-button" ng-click="listitems.showBottomSheet(item, $event)">

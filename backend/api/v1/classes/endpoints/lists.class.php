@@ -108,6 +108,20 @@ class Endpoint extends EndpointAbstract
                     return array('error'=>'Ошибка при удалении товара');
                 }
                 break;
+            case 'GET':
+                $rs = $this->api->db->prepare("SELECT items.* FROM items, user_lists WHERE items.id_list = ? AND items.id_item=? AND user_lists.id_list=items.id_list AND user_lists.id_user=? ");
+                $rs->execute(array($this->id_list, $this->id_item, $this->api->User->getId()));
+                $item = $rs->fetch(PDO::FETCH_ASSOC);
+                return $item;
+                break;
+            case 'POST':
+                $rs = $this->api->db->prepare("UPDATE items SET title=?, amount=?, checked=? WHERE id_item=?");
+                if ( $rs->execute(array($this->api->args['title'], $this->api->args['amount'], $this->api->args['checked'], $this->id_item)) ) {
+                    return true;
+                } else {
+                    return array('error'=>'Ошибка при сохранении товара');
+                }
+                break;
         }
     }
 

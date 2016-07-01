@@ -1,0 +1,35 @@
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Lists" ng-click="edititem.goBack()">
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        </md-button>
+        <h3>
+            <span>Новый товар</span>
+        </h3>
+    </div>
+</md-toolbar>
+<md-content flex layout-padding id="content" layout="column" layout-align="top center">
+    <form id="edititemForm" name="edititemForm" ng-submit="edititem.save()" novalidate>
+        <section layout="row">
+            <md-input-container class="md-block">
+                <label>Название товара</label>
+                <input id="new-item-title" name="title" ng-model="edititem.product.title" autofocus ng-maxlength="200" required>
+                <div ng-messages="edititemForm.title.$error">
+                    <div ng-message="required">Заполните поле</div>
+                    <div ng-message="maxlength">Введите более короткое название</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Количество</label>
+                <input name="amount" ng-model="edititem.product.amount" ng-maxlength="45">
+                <div ng-messages="edititemForm.amount.$error">
+                    <div ng-message="maxlength">Введите более короткое количество</div>
+                </div>
+            </md-input-container>
+        </section>
+        <section layout="row" layout-align="center center" layout-wrap>
+            <md-button class="md-raised md-primary" ng-disabled="!edititemForm.$valid || edititem.disabled" type="submit">Сохранить</md-button>
+        </section>
+
+    </form>
+</md-content>

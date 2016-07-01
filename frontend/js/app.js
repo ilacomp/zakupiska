@@ -72,6 +72,14 @@
                     controllerAs: "newitem"
                 }
             )
+            .state("edititem",
+                {
+                    url: "/edititem/:id_list/:id_item",
+                    templateUrl: "views/edititem.html",
+                    controller: "EditItemCtrl",
+                    controllerAs: "edititem"
+                }
+            )
             .state("profile",
                     {
                         url: "/profile",

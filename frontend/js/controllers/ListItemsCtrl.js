@@ -43,9 +43,15 @@
             });
 
             function ItemsSheetController ($mdBottomSheet, $mdToast, listItemsService) {
-                this.deleteItem = deleteItem;
-                this.item = self.selectedItem;
                 var selectedItemIndex = self.items.indexOf(self.selectedItem);
+                this.deleteItem = deleteItem;
+                this.editItem = editItem;
+                this.item = self.selectedItem;
+
+                function editItem() {
+                    $mdBottomSheet.hide();
+                    $state.go('edititem', {id_list: self.selectedItem.id_list, id_item: self.selectedItem.id_item});
+                };
                 function deleteItem() {
                     $mdBottomSheet.hide();
                     listItemsService.remove({id_list: self.selectedItem.id_list, id_item: self.selectedItem.id_item}, onRemove);

@@ -90,22 +90,28 @@ md-toolbar.light md-icon {
 md-list-item.ng-enter,
 md-list-item.ng-leave,
 md-list-item.ng-move {
-    -webkit-transition: 0.2s linear all;
-    transition: 0.2s linear all;
+    -webkit-transition: 0.3s linear all;
+    transition: 0.3s linear all;
     position:relative;
 }
 
 md-list-item.ng-enter {
     opacity:0;
+    height: 0px;
+    min-height: 0px;
 }
 md-list-item.ng-enter.ng-enter-active {
     opacity:1;
+    height: 48px;
 }
 
 md-list-item.ng-leave {
+    min-height: 0px;
+    height: 48px;
     opacity:1;
 }
 md-list-item.ng-leave.ng-leave-active {
+    height: 0px;
     opacity: 0;
 }
 
