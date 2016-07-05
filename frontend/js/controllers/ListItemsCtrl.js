@@ -12,6 +12,10 @@
         this.lightToolbar = false;
         this.showBottomSheet = showBottomSheet;
         this.checkItem = checkItem;
+        this.openMenu = openMenu;
+        this.clearList = clearList;
+        this.selectAll = selectAll;
+        this.unselectAll = unselectAll;
         listItemsService.get({id_list: this.id_list}, onLoad);
 
         function onLoad(data){
@@ -68,7 +72,37 @@
         }
 
         function checkItem(item){
-            item.checked = item.checked=='0'? '1' : '0';
+            listItemsService.post({id_list: self.id_list, id_item: item.id_item}, item);
+        }
+
+        function openMenu($mdOpenMenu, ev) {
+            $mdOpenMenu(ev);
+        }
+
+        function clearList(ev) {
+            self.items.forEach(function(item){
+                listItemsService.remove({id_list: self.id_list, id_item: item.id_item}, onRemove);
+            });
+            self.items = [];
+            function onRemove(data){
+                if (data.error) {
+                    $mdToast.showSimple(data.error);
+                }
+            }
+        }
+
+        function selectAll() {
+            self.items.forEach(function(item, i, arr){
+                item.checked = '1';
+                self.checkItem(item);
+            });
+        }
+
+        function unselectAll() {
+            self.items.forEach(function(item, i, arr){
+                item.checked = '0';
+                self.checkItem(item);
+            });
         }
 
     };

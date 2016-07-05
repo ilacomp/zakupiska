@@ -36,7 +36,10 @@ class Endpoint extends EndpointAbstract
     private function processLists() {
         switch($this->api->method) {
             case 'GET': //Получить списки покупок
-                $rs = $this->api->db->prepare("SELECT lists.* FROM lists, user_lists WHERE user_lists.id_user = ? AND lists.id_list = user_lists.id_list");
+                $rs = $this->api->db->prepare("
+                  SELECT lists.*, COUNT(items.id_item) as total, COUNT(IF(items.checked='1',1,NULL)) as checked
+                  FROM lists LEFT JOIN items ON items.id_list = lists.id_list, user_lists 
+                  WHERE user_lists.id_user = ? AND lists.id_list = user_lists.id_list GROUP BY id_list");
                 $rs->execute(array($this->api->User->getId()));
                 $list = $rs->fetchAll(PDO::FETCH_ASSOC);
                 return $list;

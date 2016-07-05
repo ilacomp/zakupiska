@@ -8,20 +8,23 @@
         </h3>
     </div>
 </md-toolbar>
-<md-content flex layout-padding id="content" layout="column">
-    <md-list>
-        <md-list-item ng-repeat="item in lists.list" ng-click="lists.gotoList(item.id_list)">
-            <div class="list-color" style="background-color: {{item.color}}">&nbsp;</div>
-            <p flex class="overflow-text">{{item.title}}</p>
-            <md-button class="md-icon-button" ng-click="lists.showBottomSheet(item, $event)">
-                <md-icon md-font-set="material-icons">more_vert</md-icon>
-            </md-button>
-            <md-divider ></md-divider>
+<md-content flex id="content" layout="column">
+    <md-list id="list">
+        <md-list-item class="md-2-line" ng-repeat="item in lists.list" ng-click="lists.gotoList(item.id_list)">
+                <div class="list-color" style="background-color: {{item.color}}">&nbsp;</div>
+                <div class="md-list-item-text overflow-text" layout="column" flex>
+                    <h3 class="overflow-text">{{item.title}}</h3>
+                    <md-progress-linear md-mode="determinate" value="{{item.checked/item.total*100}}"></md-progress-linear>
+                </div>
+                <md-button class="md-icon-button" ng-click="lists.showBottomSheet(item, $event)">
+                    <md-icon md-font-set="material-icons">more_vert</md-icon>
+                </md-button>
+                <md-divider ></md-divider>
         </md-list-item>
     </md-list>
 
-    <div ng-hide="lists.list.length>0">
-        Список пуст
+    <div ng-hide="lists.list.length>0" layout="column" layout-align="center center">
+        <p>Список пуст</p>
     </div>
 </md-content>
 <md-button class="md-fab md-fab-bottom-right" aria-label="Новый список" ui-sref="newlist">
