@@ -39,8 +39,8 @@
         <div>
             <md-list-item ng-repeat="item in buyItems = (listitems.items | filter: {checked: '0'})">
                 <md-checkbox ng-model="item.checked" aria-label="Выбрать" ng-true-value="'1'" ng-false-value="'0'" ng-change="listitems.checkItem(item)"></md-checkbox>
-                <p flex="80" class="overflow-text">{{item.title}}</p>
-                <p flex="20" class="overflow-text md-caption align-right">{{item.amount}}</p>
+                <p flex="80" class="overflow-text">{{::item.title}}</p>
+                <p flex="20" class="overflow-text md-caption align-right">{{::item.amount}}</p>
                 <md-button class="md-icon-button" ng-click="listitems.showBottomSheet(item, $event)">
                     <md-icon md-font-set="material-icons">more_vert</md-icon>
                 </md-button>
@@ -51,8 +51,8 @@
             <md-subheader class="md-no-sticky">Куплено</md-subheader>
             <md-list-item ng-repeat="item in  buyedItems = (listitems.items | filter: {checked: '1'})">
                 <md-checkbox ng-model="item.checked" aria-label="Выбрать" ng-true-value="'1'" ng-false-value="'0'"  ng-change="listitems.checkItem(item)"></md-checkbox>
-                <p flex="80" class="overflow-text">{{item.title}}</p>
-                <p flex="20" class="overflow-text md-caption align-right">{{item.amount}}</p>
+                <p flex="80" class="overflow-text">{{::item.title}}</p>
+                <p flex="20" class="overflow-text md-caption align-right">{{::item.amount}}</p>
                 <md-button class="md-icon-button" ng-click="listitems.showBottomSheet(item, $event)">
                     <md-icon md-font-set="material-icons">more_vert</md-icon>
                 </md-button>
