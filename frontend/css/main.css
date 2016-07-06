@@ -4,7 +4,7 @@ body {
 }
 .mainview {
     height: 95%;
-    position: relative;
+    /*position: relative;*/
 }
 .md-sidenav-left .md-avatar-icon {
     margin-left: 0;
@@ -64,6 +64,16 @@ md-list-item md-checkbox.md-checked .md-icon {
 .align-right {
     text-align: right;
 }
+.md-avatar-icon.big-icon {
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+}
+
+md-sidenav md-icon {
+    color: rgb(63,81,181);
+}
+
 /* Animations */
 
 .mainview.ng-enter {

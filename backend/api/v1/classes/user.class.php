@@ -10,6 +10,8 @@ require_once __DIR__.'/db.class.php';
 class User {
 	private $id_user;
 	private $username;
+	private $email;
+	private $phone;
 	private $db;
 	private $userTable;
 	private $session_var = 'id_user';
@@ -25,17 +27,21 @@ class User {
 	private function init(){
 		$this->id_user = -1;
 		$this->username = '';
+		$this->email = '';
+		$this->phone = '';
 		$this->userTable = Config::get('db_prefix').'users';
 		$this->db = DB::getInstance();
 	}
 
 	function loadById($id_user) {
-		$rs = $this->db->prepare("SELECT id_user, username FROM ".$this->userTable." WHERE id_user=? LIMIT 1");
+		$rs = $this->db->prepare("SELECT id_user, username, email, phone FROM ".$this->userTable." WHERE id_user=? LIMIT 1");
 		$rs->execute(array($id_user));
 
 		if($row = $rs->fetch(PDO::FETCH_ASSOC)) {
 			$this->username = $row['username'];
 			$this->id_user = $row['id_user'];
+			$this->email = $row['email'];
+			$this->phone = $row['phone'];
 			return true;
 		}
 		else {
@@ -51,12 +57,14 @@ class User {
 			return false;
 		}
 
-		$rs = $this->db->prepare("SELECT id_user, username FROM ".$this->userTable." WHERE username=? AND password=? LIMIT 1");
+		$rs = $this->db->prepare("SELECT id_user, username, email, phone  FROM ".$this->userTable." WHERE username=? AND password=? LIMIT 1");
 		$rs->execute(array($username, md5($password)));
 
 		if($row = $rs->fetch(PDO::FETCH_ASSOC)) {
 			$this->username = $row['username'];
 			$this->id_user = $row['id_user'];
+			$this->email = $row['email'];
+			$this->phone = $row['phone'];
 			$_SESSION[$this->session_var] = $this->id_user;
 			return true;
 		}
@@ -76,6 +84,7 @@ class User {
 
 		if( $rs->execute(array($username, $email, md5($password))) ) {
 			$this->username = $username;
+			$this->email = $email;
 			$this->id_user  = $this->db->lastInsertId();
 			$_SESSION[$this->session_var] = $this->id_user;
 			return true;
@@ -86,10 +95,32 @@ class User {
 		}
 	}
 
+	function update($username, $email, $phone, $password, $password2) {
+		if(empty($email) || empty($password) || empty($username) || $password!==$password2) {
+			$this->error = 'Введите имя пользователя и пароль';
+			return false;
+		}
+
+		$rs = $this->db->prepare("UPDATE ".$this->userTable." SET username=?, email=?, phone=?, password=? WHERE id_user=? LIMIT 1");
+
+		if( $rs->execute(array($username, $email, $phone, md5($password), $this->id_user)) ) {
+			$this->username = $username;
+			$this->email = $email;
+			$this->phone = $phone;
+			return true;
+		}
+		else {
+			$this->error = 'Не удалось обновить данные пользователя. Возможно пользователь с таким именем уже зарегистрирован.';
+			return false;
+		}
+	}
+
 	function getUserInfo() {
 		$data = array(
 			'id_user' => $this->id_user,
 			'username' => $this->username,
+			'email' => $this->email,
+			'phone' => $this->phone,
 			'authorized' => $this->authorized()
 		);
 		return $data;

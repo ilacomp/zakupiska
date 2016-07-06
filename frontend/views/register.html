@@ -7,10 +7,9 @@
 </md-toolbar>
 <md-content flex layout-padding id="content" layout="column">
     <form name="registerForm" ng-submit="register.register()" novalidate>
-        <h2 class="form-signin-heading">Регистрация</h2>
         <md-input-container class="md-block">
             <label>Имя</label>
-            <input required name="username" ng-model="register.username" autofocus />
+            <input required name="username" ng-model="register.username" md-autofocus />
             <div ng-messages="registerForm.username.$error">
                 <div ng-message="required">Заполните поле</div>
             </div>

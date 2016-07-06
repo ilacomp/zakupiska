@@ -5,7 +5,14 @@
                 md-disable-backdrop
                 md-whiteframe="4">
         <md-toolbar class="md-theme-indigo">
-            <h1 class="md-toolbar-tools">Меню</h1>
+            <h1 class="md-toolbar-tools" ng-if="!idx.isAuth()">Меню</h1>
+            <div layout="row" layout-padding ng-if="idx.isAuth()">
+                <md-icon md-font-set="material-icons" class="md-avatar-icon big-icon">account_circle</md-icon>
+                <div layout="column">
+                    <h3>{{idx.user().username}}</h3>
+                    <p>{{idx.user().email}}</p>
+                </div>
+            </div>
         </md-toolbar>
         <md-content flex>
             <md-list layout="column">
@@ -62,27 +69,7 @@
         </md-toolbar>
         <md-content flex layout="row">
             <md-content flex layout-padding id="content">
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
-                <h1>Тут какой-то текст дурацкий</h1>
+                <p>Удивительная софтина</p>
             </md-content>
         </md-content>
     </div>

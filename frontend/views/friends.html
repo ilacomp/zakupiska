@@ -1,0 +1,54 @@
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Home" ui-sref="index">
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        </md-button>
+        <h3>
+            <span>Друзья</span>
+        </h3>
+    </div>
+</md-toolbar>
+<md-content flex id="content" layout="column">
+    <md-content class="md-padding">
+        <form id="firendsSearchForm" ng-submit="$event.preventDefault()">
+            <md-autocomplete
+                    ng-disabled="frCtrl.isDisabled"
+                    md-no-cache="frCtrl.noCache"
+                    md-input-minlength="2"
+                    md-input-maxlength="10"
+                    md-delay="1000"
+                    md-selected-item="frCtrl.selectedItem"
+                    md-search-text-change="frCtrl.searchTextChange(frCtrl.searchText)"
+                    md-search-text="frCtrl.searchText"
+                    md-selected-item-change="frCtrl.selectedItemChange(item)"
+                    md-items="item in frCtrl.querySearch(frCtrl.searchText)"
+                    md-item-text="item.display"
+                    md-min-length="2"
+                    placeholder="Имя или email">
+                <md-item-template>
+                    <span md-highlight-text="frCtrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No states matching "{{frCtrl.searchText}}" were found.
+                    <a ng-click="frCtrl.newState(frCtrl.searchText)">Create a new one!</a>
+                </md-not-found>
+            </md-autocomplete>
+        </form>
+    <md-list id="list">
+        <!--md-list-item class="md-2-line" ng-repeat="item in lists.list" ng-click="lists.gotoList(item.id_list)">
+                <div class="list-color" style="background-color: {{item.color}}">&nbsp;</div>
+                <div class="md-list-item-text overflow-text" layout="column" flex>
+                    <h3 class="overflow-text">{{item.title}}</h3>
+                    <md-progress-linear md-mode="determinate" value="{{item.checked/item.total*100}}"></md-progress-linear>
+                </div>
+                <md-button class="md-icon-button" ng-click="lists.showBottomSheet(item, $event)">
+                    <md-icon md-font-set="material-icons">more_vert</md-icon>
+                </md-button>
+                <md-divider ></md-divider>
+        </md-list-item-->
+    </md-list>
+
+    <div ng-hide="friends.list.length>0" layout="column" layout-align="center center">
+        <p>Список пуст</p>
+    </div>
+</md-content>

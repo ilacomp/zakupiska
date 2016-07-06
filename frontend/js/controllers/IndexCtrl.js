@@ -9,8 +9,14 @@
     function IndexCtrl (authService, $state, $mdSidenav) {
         this.logout = logout;
         this.closeSideNav = closeSideNav;
-        this.isAuth = authService.isAuth;
         this.toggleSideBar = toggleSideBar;
+        this.isAuth = authService.isAuth;
+        this.user = authService.getUser;
+        activate();
+
+        function activate() {
+
+        }
 
         function toggleSideBar (){
             $mdSidenav('left').toggle();

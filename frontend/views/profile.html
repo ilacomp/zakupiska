@@ -1,1 +1,52 @@
-Profile page
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Home" ui-sref="index">
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        </md-button>
+        <h3>
+            <span>Профиль</span>
+        </h3>
+    </div>
+</md-toolbar>
+<md-content flex layout-padding id="content" layout="column">
+    <form id="profileForm" name="profileForm" ng-submit="profile.save()" novalidate>
+        <md-input-container class="md-block">
+            <label>Имя</label>
+            <input required name="username" ng-model="profile.user.username" ng-maxlength="200" md-autofocus  />
+            <div ng-messages="profileForm.username.$error">
+                <div ng-message="required">Заполните поле</div>
+                <div ng-message="maxlength">Введите более короткое название</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Email</label>
+            <input type="email" required name="email" ng-model="profile.user.email" />
+            <div ng-messages="profileForm.email.$error">
+                <div ng-message="required">Заполните поле</div>
+                <div ng-message="email">Укажите правильный адрес email</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Телефон</label>
+            <input name="phone" ng-model="profile.user.phone" ng-pattern="/^([\+]?[0-9])?[0-9]{10}$/" />
+            <div ng-messages="profileForm.phone.$error">
+                <div ng-message="pattern">[+#]########## - Введите правильный номер</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Пароль</label>
+            <input type="password" name="pass1" ng-model="profile.user.pass1" />
+            <div ng-messages="profileForm.pass1.$error">
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Повторите пароль</label>
+            <input type="password" name="pass2" ng-model="profile.user.pass2" />
+            <div ng-messages="profileForm.pass2.$error">
+            </div>
+        </md-input-container>
+        <section layout="row" layout-align="center center" layout-wrap>
+            <md-button class="md-raised md-primary" ng-disabled="!profileForm.$valid || profile.disabled" type="submit">Сохранить</md-button>
+        </section>
+    </form>
+</md-content>

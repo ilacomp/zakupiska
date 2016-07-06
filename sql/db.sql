@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `phone` VARCHAR(16),
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `users_username_uindex` (`username`)

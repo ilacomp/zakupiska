@@ -84,7 +84,17 @@
                     {
                         url: "/profile",
                         templateUrl: "views/profile.html",
+                        controller: "ProfileCtrl",
+                        controllerAs: "profile"
                     }
+            )
+            .state("friends",
+                {
+                    url: "/friends",
+                    templateUrl: "views/friends.html",
+                    controller: "FriendsCtrl",
+                    controllerAs: "frCtrl"
+                }
             );
     }
 

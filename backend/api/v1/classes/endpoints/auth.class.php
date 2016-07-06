@@ -41,6 +41,17 @@ class Endpoint extends EndpointAbstract
                         'error' => $this->api->User->error
                     );
                 }
+            case 'update':
+                if ($this->api->User->update($this->api->args['username'], $this->api->args['email'], $this->api->args['phone'], $this->api->args['pass1'], $this->api->args['pass2']))
+                    return array(
+                        'user' => $this->api->User->getUserInfo(),
+                        'token' => session_id(),
+                    );
+                else {
+                    return array(
+                        'error' => $this->api->User->error
+                    );
+                }
             case '':
                 if ($this->api->method == 'GET') {
                     return array(

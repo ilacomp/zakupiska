@@ -14,7 +14,9 @@
             logout: logout,
             register: register,
             isAuth: isAuth,
-            getToken: getToken
+            getToken: getToken,
+            getUser: getUser,
+            updateUser: updateUser
         };
 
         function isAuth(){
@@ -23,6 +25,22 @@
         function setUser(newUser){
             self.user = newUser;
             $window.localStorage.setItem('user', JSON.stringify(newUser));
+        }
+
+        function getUser() {
+            return self.user;
+        }
+
+        function updateUser(params, successCallback, errorCallback) {
+            self.resource.update(params, function(data){
+                if (data.error){
+                    errorCallback(data.error);
+                } else {
+                    setUser(data.user);
+                    setToken(data.token);
+                    successCallback()
+                }
+            });
         }
 
         function setToken(newToken){
@@ -79,10 +97,13 @@
                 }
             });
         }
+
         function init() {
             var defaultUser = {
                 'id_user': -1,
                 'username': '',
+                'email': '',
+                'phone': '',
                 'authorized': false
             };
             setUser($window.localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')) : defaultUser);
@@ -93,6 +114,7 @@
                 login: {method: 'post', params: {action: 'login'}},
                 logout: {method: 'post', params: {action: 'logout'}},
                 register: {method: 'post', params: {action: 'register'}},
+                update: {method: 'post', params: {action: 'update'}}
             });
             checkAuth();
         }
