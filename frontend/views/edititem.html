@@ -3,8 +3,8 @@
         <md-button class="md-icon-button" aria-label="Lists" ng-click="edititem.goBack()">
             <md-icon md-font-set="material-icons">arrow_back</md-icon>
         </md-button>
-        <h3>
-            <span>Новый товар</span>
+        <h3 flex class="overflow-text">
+            <span ui-sref="index" ng-bind="edititem.product.title">Товар</span>
         </h3>
     </div>
 </md-toolbar>
