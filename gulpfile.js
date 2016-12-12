@@ -7,7 +7,8 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     del = require('del'),
     replace = require('gulp-replace'),
-    debug = require('gulp-debug');
+    debug = require('gulp-debug'),
+	gutil = require('gulp-util');
 // var less = require('gulp-less');
 // var sourcemaps = require('gulp-sourcemaps');
 
@@ -20,24 +21,44 @@ var paths = {
 var filterJS = gulpFilter(['**/*.js'], {restore:true});
 var filterCSS = gulpFilter(['**/*.css'], {restore:true});
 
+
+function asIs() {
+	var timestamp = Date.now();
+	return gulp.src(paths.asis)
+		.pipe(gulpif(/index\.html/ , replace(/(script src="|link href=")([^"]+)"/g,
+			'$1$2?t=' + timestamp + '"')))
+		.pipe(gulp.dest('www'));
+}
+
+function scriptsDev() {
+	return gulp.src(paths.scripts)
+		.pipe(concat('main.min.js'))
+		.pipe(gulp.dest('www/js'));
+}
+
+function cssDev() {
+	return gulp.src(paths.css)
+		.pipe(concat('main.min.css'))
+		.pipe(gulp.dest('www/css'));
+}
+
+function backend() {
+	return gulp.src(paths.backend)
+		.pipe(gulp.dest('www'));
+}
+
 // Clean public folder
 gulp.task('clean', function() {
     return del(['www']);
 });
 
 // Copy backend files
-gulp.task('backend', ['clean'], function() {
-    return gulp.src(paths.backend)
-        .pipe(gulp.dest('www'));
-});
+gulp.task('backend', ['clean'], backend);
+gulp.task('asis', ['clean'], asIs);
+// Concat JS
+gulp.task('scripts-dev', ['clean'], scriptsDev);
+gulp.task('css-dev', ['clean'], cssDev);
 
-gulp.task('asis', ['clean'], function() {
-    var timestamp = Date.now();
-    return gulp.src(paths.asis)
-        .pipe(gulpif(/index\.html/ , replace(/(script src="|link href=")([^"]+)"/g,
-            '$1$2?t=' + timestamp + '"')))
-        .pipe(gulp.dest('www'));
-});
 
 // Concat and minify vendor JS AND CSS
 gulp.task('vendor', ['clean'], function() {
@@ -73,18 +94,6 @@ gulp.task('scripts', ['clean'], function() {
         .pipe(gulp.dest('www/js'));
 });
 
-// Concat JS
-gulp.task('scripts-dev', ['clean'], function() {
-    return gulp.src(paths.scripts)
-        .pipe(concat('main.min.js'))
-        .pipe(gulp.dest('www/js'));
-});
-
-gulp.task('css-dev', ['clean'], function() {
-    return gulp.src(paths.css)
-        .pipe(concat('main.min.css'))
-        .pipe(gulp.dest('www/css'));
-});
 
 gulp.task('css', ['clean'], function() {
     return gulp.src(paths.css)
@@ -99,5 +108,24 @@ gulp.task('bower', function() {
         .pipe(filterJS)
         .pipe(debug());
 });
-gulp.task('build-dev', ['backend', 'vendor-dev', 'asis', 'css-dev', 'scripts-dev']);
+
+gulp.task('watch-dev', watch);
+
+function watch() {
+	gutil.log('Watch is in progress.')
+	gulp.watch(paths.scripts, function() {
+		scriptsDev().on('end', function(){gutil.log('Scripts rebuilded.')});
+	});
+	gulp.watch(paths.asis, function() {
+		asIs().on('end', function(){gutil.log('Assests copied.')});
+	});
+	gulp.watch(paths.css, function() {
+		cssDev().on('end', function(){gutil.log('CSS copied.')});
+	});
+	gulp.watch(paths.backend, function() {
+		backend().on('end', function(){gutil.log('Backend copied.')});
+	});
+}
+
+gulp.task('build-dev', ['backend', 'vendor-dev', 'asis', 'css-dev', 'scripts-dev'], watch);
 gulp.task('build', ['backend', 'vendor', 'asis', 'css', 'scripts']);
