@@ -4,16 +4,15 @@
 (function() {
     angular.module('APP').controller("NewItemCtrl", NewItemCtrl);
 
-    NewItemCtrl.$inject = ['$state', '$window', 'listItemsService', '$mdToast'];
+    NewItemCtrl.$inject = ['$state', '$window', 'listItemsService', '$mdToast', '$rootScope'];
 
-    function NewItemCtrl ($state, $window, listItemsService, $mdToast) {
+    function NewItemCtrl ($state, $window, listItemsService, $mdToast, $rootScope) {
         var self = this;
         var defaultProduct = {
             title: '',
             amount: ''
         };
         this.product = angular.copy(defaultProduct);
-        this.disabled = false;
         this.id_list = $state.params.id_list;
         this.add = add;
         this.addReturn = addReturn;
@@ -26,9 +25,9 @@
         }
 
         function add(){
-            self.disabled = true;
+	        $rootScope.loading = true;
             listItemsService.put({id_list: self.id_list}, self.product, function(data){
-                self.disabled = false;
+	            $rootScope.loading = false;
                 if (data.error) {
                     $mdToast.showSimple(data.error);
                 } else {
@@ -40,9 +39,9 @@
         }
 
         function addReturn(){
-            self.disabled = true;
-            listItemsService.put({id_list: self.id_list}, self.product, function(data){
-                self.disabled = false;
+	        $rootScope.loading = true;
+	        listItemsService.put({id_list: self.id_list}, self.product, function(data){
+		        $rootScope.loading = false;
                 if (data.error) {
                     $mdToast.showSimple(data.error);
                 } else {

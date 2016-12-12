@@ -4,9 +4,9 @@
 (function() {
     angular.module('APP').controller("ListsCtrl", ListsCtrl);
 
-    ListsCtrl.$inject = ['listService', '$mdBottomSheet', '$state'];
+    ListsCtrl.$inject = ['listService', '$mdBottomSheet', '$state', '$rootScope'];
 
-    function ListsCtrl (listService, $mdBottomSheet, $state) {
+    function ListsCtrl (listService, $mdBottomSheet, $state, $rootScope) {
         var self = this;
         this.list = listService.query();
         this.showBottomSheet = showBottomSheet;
@@ -37,7 +37,9 @@
 
                 function deleteItem() {
                     $mdBottomSheet.hide();
+	                $rootScope.loading = true;
                     self.selectedItem.$remove({id: self.selectedItem.id_list}, function(data){
+	                    $rootScope.loading = false;
                         if (data.error) {
                             $mdToast.showSimple(data.error);
                         } else {

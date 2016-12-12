@@ -4,9 +4,9 @@
 (function() {
     angular.module('APP').controller("ListItemsCtrl", ListItemsCtrl);
 
-    ListItemsCtrl.$inject = ['$state', 'listItemsService', '$mdBottomSheet'];
+    ListItemsCtrl.$inject = ['$state', 'listItemsService', '$mdBottomSheet', '$rootScope'];
 
-    function ListItemsCtrl ($state, listItemsService, $mdBottomSheet) {
+    function ListItemsCtrl ($state, listItemsService, $mdBottomSheet, $rootScope) {
         var self = this;
         this.id_list = $state.params.id_list;
         this.lightToolbar = false;
@@ -16,16 +16,21 @@
         this.clearList = clearList;
         this.selectAll = selectAll;
         this.unselectAll = unselectAll;
-        listItemsService.get({id_list: this.id_list}, onLoad);
 
-        function onLoad(data){
-            self.items = data.items;
-            self.list = data.list;
-            if (self.list.color == '#ffffff') {
-                self.list.color = '#3f51b5';
-            } else {
-                self.lightToolbar = isLight(self.list.color);
-            }
+        activate();
+
+        function activate() {
+	        $rootScope.loading = true;
+	        listItemsService.get({id_list: self.id_list}, function (data){
+		        self.items = data.items;
+		        self.list = data.list;
+		        $rootScope.loading = false;
+		        if (self.list.color == '#ffffff') {
+			        self.list.color = '#3f51b5';
+		        } else {
+			        self.lightToolbar = isLight(self.list.color);
+		        }
+	        });
         }
 
         function isLight( color ) {
@@ -58,9 +63,11 @@
                 };
                 function deleteItem() {
                     $mdBottomSheet.hide();
+	                $rootScope.loading = true;
                     listItemsService.remove({id_list: self.selectedItem.id_list, id_item: self.selectedItem.id_item}, onRemove);
 
                     function onRemove(data){
+	                    $rootScope.loading = false;
                         if (data.error) {
                             $mdToast.showSimple(data.error);
                         } else {

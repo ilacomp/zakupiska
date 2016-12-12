@@ -9,8 +9,6 @@ var gulp = require('gulp'),
     replace = require('gulp-replace'),
     debug = require('gulp-debug'),
 	gutil = require('gulp-util');
-// var less = require('gulp-less');
-// var sourcemaps = require('gulp-sourcemaps');
 
 var paths = {
     backend: ['backend/**', 'backend/.htaccess'],
@@ -112,7 +110,7 @@ gulp.task('bower', function() {
 gulp.task('watch-dev', watch);
 
 function watch() {
-	gutil.log('Watch is in progress.')
+	gutil.log('Watch is in progress.');
 	gulp.watch(paths.scripts, function() {
 		scriptsDev().on('end', function(){gutil.log('Scripts rebuilded.')});
 	});

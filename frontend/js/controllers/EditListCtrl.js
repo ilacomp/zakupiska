@@ -4,23 +4,26 @@
 (function() {
     angular.module('APP').controller("EditListCtrl", EditListCtrl);
 
-    EditListCtrl.$inject = ['$state', 'listService', '$mdToast'];
+    EditListCtrl.$inject = ['$state', 'listService', '$mdToast', '$rootScope'];
 
-    function EditListCtrl ($state, listService, $mdToast) {
+    function EditListCtrl ($state, listService, $mdToast, $rootScope) {
         var self = this;
         this.id_list = $state.params.id_list;
-        this.disabled = false;
         this.save = save;
-        listService.get({id: this.id_list}, onLoad);
+        activate();
 
-        function onLoad(data){
-            self.list = data.list;
+        function activate() {
+	        $rootScope.loading = true;
+	        listService.get({id: self.id_list}, function (data) {
+		        $rootScope.loading = false;
+		        self.list = data.list;
+            });
         }
 
         function save(){
-            self.disabled = true;
+	        $rootScope.loading = true;
             listService.post({id: self.id_list}, {title: self.list.title, color: self.list.color}, function(data){
-                self.disabled = false;
+	            $rootScope.loading = false;
                 if (data.error) {
                     $mdToast.showSimple(data.error);
                 } else {

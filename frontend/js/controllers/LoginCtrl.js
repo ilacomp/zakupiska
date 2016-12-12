@@ -10,15 +10,14 @@
         var self = this;
         this.username = null;
         this.pass = null;
-        this.disabled = false;
         this.login = login;
 
         function login() {
-            self.disabled = true;
+	        $rootScope.loading = true;
             authService.login({username: self.username, password: self.pass}, successCallback, errorCallback);
 
             function successCallback(){
-                self.disabled = false;
+	            $rootScope.loading = false;
                 if ($rootScope.redirectURL) {
                     $location.url($rootScope.redirectURL);
                     delete $rootScope.redirectURL;
@@ -29,6 +28,7 @@
 
             function errorCallback(error){
                 self.disabled = false;
+	            $rootScope.loading = false;
                 $mdToast.showSimple(error);
             }
         };

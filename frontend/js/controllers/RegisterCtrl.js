@@ -14,15 +14,14 @@
         this.pass1 = null;
         this.pass2 = null;
         this.error = null;
-        this.disabled = false;
         this.register = register;
 
         function register() {
-            self.disabled = true;
+	        $rootScope.loading = true;
             authService.register({username: self.username, email: self.email, pass1: self.pass1, pass2: self.pass2}, successCallback, errorCallback);
 
             function successCallback(){
-                self.disabled = false;
+	            $rootScope.loading = false;
                 if ($rootScope.redirectURL) {
                     $location.url($rootScope.redirectURL);
                     delete $rootScope.redirectURL;
@@ -32,7 +31,7 @@
             }
 
             function errorCallback(error){
-                self.disabled = false;
+	            $rootScope.loading = false;
                 $mdToast.showSimple(error);
             }
 

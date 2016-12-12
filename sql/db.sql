@@ -68,3 +68,12 @@ CREATE TABLE items
 );
 CREATE INDEX checked_idx ON items (checked);
 CREATE INDEX id_list_idx ON items (id_list);
+
+CREATE TABLE `friends`
+(
+  id_user INT(11) NOT NULL,
+  id_friend INT(11) NOT NULL,
+  CONSTRAINT friends_id_user_id_friend_pk PRIMARY KEY (id_user, id_friend),
+  CONSTRAINT friends_users_id_user_fk FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT friends_users_id_friend_fk FOREIGN KEY (id_friend) REFERENCES users (id_user) ON DELETE CASCADE ON UPDATE CASCADE
+);

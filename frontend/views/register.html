@@ -36,8 +36,8 @@
             </div>
         </md-input-container>
         <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-            <md-button class="md-raised md-primary" ng-disabled="!registerForm.$valid || register.pass1!==register.pass2 || register.disabled" type="submit">Регистрация</md-button>
-            <md-button class="md-raised" ng-disabled="register.disabled" ui-sref="login">Войти</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="!registerForm.$valid || register.pass1!==register.pass2" type="submit">Регистрация</md-button>
+            <md-button class="md-raised" ui-sref="login">Войти</md-button>
         </section>
 
     </form>

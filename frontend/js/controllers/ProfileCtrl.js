@@ -21,16 +21,19 @@
 
         function save() {
             self.disabled = true;
-            authService.updateUser(self.user, successCallback, errorCallback);
+	        $rootScope.loading = true;
+	        authService.updateUser(self.user, successCallback, errorCallback);
             
             function successCallback(){
                 self.disabled = false;
-                $state.go('index');
+	            $rootScope.loading = false;
+	            $state.go('index');
             }
             
             function errorCallback(error){
                 self.disabled = false;
-                $mdToast.showSimple(error);
+	            $rootScope.loading = false;
+	            $mdToast.showSimple(error);
             }
 
         };
