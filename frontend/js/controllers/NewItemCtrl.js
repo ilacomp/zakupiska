@@ -17,9 +17,8 @@
         this.add = add;
         this.addReturn = addReturn;
         this.goBack = goBack;
-        activate();
 
-        function activate() {
+        function focus() {
             var element = $window.document.getElementById('new-item-title');
             if(element) element.focus();
         }
@@ -32,7 +31,7 @@
                     $mdToast.showSimple(data.error);
                 } else {
                     self.product = angular.copy(defaultProduct);
-                    activate();
+                    focus();
                 }
             });
 

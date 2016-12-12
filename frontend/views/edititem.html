@@ -13,7 +13,7 @@
         <section layout="row">
             <md-input-container class="md-block">
                 <label>Название товара</label>
-                <input id="new-item-title" name="title" ng-model="edititem.product.title" md-autofocus ng-maxlength="200" required>
+                <input id="new-item-title" name="title" ng-model="edititem.product.title" autofocus ng-maxlength="200" required>
                 <div ng-messages="edititemForm.title.$error">
                     <div ng-message="required">Заполните поле</div>
                     <div ng-message="maxlength">Введите более короткое название</div>

@@ -11,7 +11,6 @@
         var self = this;
         this.user = {};
         this.error = null;
-        this.disabled = false;
         this.save = save;
         activate();
 
@@ -20,18 +19,15 @@
         }
 
         function save() {
-            self.disabled = true;
 	        $rootScope.loading = true;
 	        authService.updateUser(self.user, successCallback, errorCallback);
             
             function successCallback(){
-                self.disabled = false;
 	            $rootScope.loading = false;
 	            $state.go('index');
             }
             
             function errorCallback(error){
-                self.disabled = false;
 	            $rootScope.loading = false;
 	            $mdToast.showSimple(error);
             }
