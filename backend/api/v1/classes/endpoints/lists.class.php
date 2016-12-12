@@ -16,7 +16,9 @@ class Endpoint extends EndpointAbstract
     {
         $this->api->exitIfUnauthorized();
         list($this->id_list, $this->id_item) = $this->api->args;
-        if ( empty($this->id_list) ) {
+        if ($this->api->verb == 'copy') {
+            return $this->copyList();
+        } elseif ( empty($this->id_list) ) {
             //Выполняем запрос к /lists
             return $this->processLists();
         } else {
@@ -136,6 +138,25 @@ class Endpoint extends EndpointAbstract
             throw new Exception ('Not Found', 404);
         } else {
             return $list;
+        }
+    }
+
+    private function copyList() {
+        $this->id_list = $this->api->args['id'];
+        $list = $this->getCurrentList();
+        $rs = $this->api->db->prepare("INSERT INTO lists (color, title) (SELECT color, CONCAT(title, ' (копия)') as title FROM lists WHERE id_list=?)");
+        if ($rs->execute(array( $this->id_list))) {
+            $new_list = $this->api->db->lastInsertId();
+            $rs = $this->api->db->prepare("INSERT INTO user_lists (id_list, id_user) VALUES (?,?)");
+            if ( $rs->execute(array($new_list, $this->api->User->getId())) ) {
+                $rs = $this->api->db->prepare("INSERT INTO items (amount, title, id_list) (SELECT amount, title, ? as id_list FROM items WHERE id_list = ?)");
+                $rs->execute(array($new_list, $this->id_list));
+                return array('id_list' => $new_list);
+            } else {
+                return array('error'=>'Ошибка при создании списка');
+            }
+        } else {
+            return array('error'=>'Ошибка при создании списка');
         }
     }
 }

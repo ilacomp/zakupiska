@@ -4,9 +4,9 @@
 (function() {
     angular.module('APP').controller("ListItemsCtrl", ListItemsCtrl);
 
-    ListItemsCtrl.$inject = ['$state', 'listItemsService', '$mdBottomSheet', '$rootScope'];
+    ListItemsCtrl.$inject = ['$state', 'listItemsService', '$mdBottomSheet', '$rootScope', '$mdToast'];
 
-    function ListItemsCtrl ($state, listItemsService, $mdBottomSheet, $rootScope) {
+    function ListItemsCtrl ($state, listItemsService, $mdBottomSheet, $rootScope, $mdToast) {
         var self = this;
         this.id_list = $state.params.id_list;
         this.lightToolbar = false;
