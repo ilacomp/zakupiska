@@ -33,6 +33,7 @@
                 this.deleteItem = deleteItem;
                 this.editItem = editItem;
                 this.copyItem = copyItem;
+                this.shareItem = shareItem;
                 this.item = self.selectedItem;
                 var selectedItemIndex = self.list.indexOf(self.selectedItem);
 
@@ -40,6 +41,11 @@
                     $mdBottomSheet.hide();
                     $state.go('editlist', {id_list: self.selectedItem.id_list});
                 }
+
+	            function shareItem() {
+		            $mdBottomSheet.hide();
+		            $state.go('sharelist', {id_list: self.selectedItem.id_list});
+	            }
 
                 function deleteItem() {
                     $mdBottomSheet.hide();

@@ -8,8 +8,8 @@
         </h3>
     </div>
 </md-toolbar>
-<md-content flex id="content" layout="column">
-    <md-content class="md-padding">
+<md-content flex id="content" layout="column" class="md-padding">
+
         <form id="firendsSearchForm" ng-submit="$event.preventDefault()">
             <md-autocomplete
                     ng-disabled="frCtrl.isDisabled"
@@ -33,6 +33,7 @@
                 </md-not-found>
             </md-autocomplete>
         </form>
+
     <md-list id="list">
         <md-list-item class="md-2-line" ng-repeat="item in frCtrl.friends" ng-click="frCtrl.gotoList(item.id_user)">
                 <md-icon md-font-set="material-icons" class="md-avatar-icon material-icons">account_box</md-icon>
@@ -50,4 +51,5 @@
     <div ng-hide="frCtrl.friends.length>0" layout="column" layout-align="center center">
         <p>Список пуст</p>
     </div>
+
 </md-content>

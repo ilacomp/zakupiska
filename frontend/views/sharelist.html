@@ -1,0 +1,29 @@
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Lists" ui-sref="lists">
+            <md-icon md-font-set="material-icons">arrow_back</md-icon>
+        </md-button>
+        <h3>
+            <span>Поделиться</span>
+        </h3>
+    </div>
+</md-toolbar>
+<md-content flex id="content" layout="column">
+    <md-list id="list">
+        <md-list-item class="md-2-line" ng-repeat="item in shareCtrl.friends" ng-click="shareCtrl.gotoList(item.id_user)">
+                <md-icon md-font-set="material-icons" class="md-avatar-icon material-icons">account_box</md-icon>
+                <div class="md-list-item-text overflow-text" layout="column" flex>
+                    <h3 class="overflow-text">{{item.username}}</h3>
+                    <p>{{item.email}}</p>
+                </div>
+                <md-button class="md-icon-button" ng-click="frCtrl.deleteFriend(item, $event)">
+                    <md-icon md-font-set="material-icons">delete</md-icon>
+                </md-button>
+                <md-divider ></md-divider>
+        </md-list-item>
+    </md-list>
+
+    <div ng-hide="shareCtrl.friends.length>0" layout="column" layout-align="center center">
+        <p>Список пуст</p>
+    </div>
+</md-content>

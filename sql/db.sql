@@ -42,6 +42,7 @@ DROP TABLE IF EXISTS `user_lists`;
 CREATE TABLE IF NOT EXISTS `user_lists` (
   `id_user` int(11) NOT NULL,
   `id_list` int(11) NOT NULL,
+  `rights` ENUM('owner','readonly') NOT NULL DEFAULT 'owner',
   KEY `user_lists_lists_id_list_fk` (`id_list`),
   KEY `user_lists_users_id_user_fk` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -64,7 +65,7 @@ CREATE TABLE items
   title VARCHAR(200),
   amount VARCHAR(45),
   checked TINYINT(1) DEFAULT '0' NOT NULL,
-  CONSTRAINT id_list_fk FOREIGN KEY (id_list) REFERENCES lists (id_list)
+  CONSTRAINT id_list_fk FOREIGN KEY (id_list) REFERENCES lists (id_list) ON DELETE CASCADE
 );
 CREATE INDEX checked_idx ON items (checked);
 CREATE INDEX id_list_idx ON items (id_list);

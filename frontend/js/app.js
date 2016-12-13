@@ -95,6 +95,14 @@
                     controller: "FriendsCtrl",
                     controllerAs: "frCtrl"
                 }
+            )
+            .state("sharelist",
+                {
+                    url: "/sharelist",
+                    templateUrl: "views/sharelist.html",
+                    controller: "ShareListCtrl",
+                    controllerAs: "shareCtrl"
+                }
             );
     }
 

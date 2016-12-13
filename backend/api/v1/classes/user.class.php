@@ -51,14 +51,14 @@ class User {
 	}
 
 
-	function login($username, $password) {
-		if(empty($username) || empty($password)) {
+	function login($email, $password) {
+		if(empty($email) || empty($password)) {
 			$this->error = 'Введите имя пользователя и пароль';
 			return false;
 		}
 
-		$rs = $this->db->prepare("SELECT id_user, username, email, phone  FROM ".$this->userTable." WHERE username=? AND password=? LIMIT 1");
-		$rs->execute(array($username, md5($password)));
+		$rs = $this->db->prepare("SELECT id_user, username, email, phone  FROM ".$this->userTable." WHERE email=? AND password=? LIMIT 1");
+		$rs->execute(array($email, md5($password)));
 
 		if($row = $rs->fetch(PDO::FETCH_ASSOC)) {
 			$this->username = $row['username'];

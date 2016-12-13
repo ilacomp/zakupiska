@@ -32,7 +32,7 @@ class APIv1 extends API
 
     public function exitIfUnauthorized(){
         if (!$this->User->authorized()) {
-            throw new Exception ('Forbidden', 403);
+            throw new Exception ('Unauthorized', 401);
         }
     }
 

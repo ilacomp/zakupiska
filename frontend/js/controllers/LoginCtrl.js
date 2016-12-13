@@ -8,13 +8,13 @@
 
     function LoginCtrl($state, $rootScope, authService, $location, $mdToast) {
         var self = this;
-        this.username = null;
+        this.email = null;
         this.pass = null;
         this.login = login;
 
         function login() {
 	        $rootScope.loading = true;
-            authService.login({username: self.username, password: self.pass}, successCallback, errorCallback);
+            authService.login({email: self.email, password: self.pass}, successCallback, errorCallback);
 
             function successCallback(){
 	            $rootScope.loading = false;
@@ -27,7 +27,6 @@
             }
 
             function errorCallback(error){
-                self.disabled = false;
 	            $rootScope.loading = false;
                 $mdToast.showSimple(error);
             }

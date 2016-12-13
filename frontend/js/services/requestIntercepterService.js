@@ -8,7 +8,7 @@
     function httpRequestInterceptor($injector, $rootScope) {
         return {
             response: function(response) {
-                if (response.status === 403) {
+                if (response.status === 401) {
                     var authService = $injector.get('authService');
                     var $state = $injector.get('$state');
                     authService.logout(function(){

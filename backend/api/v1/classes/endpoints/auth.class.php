@@ -13,7 +13,7 @@ class Endpoint extends EndpointAbstract
     {
         switch ($this->api->verb) {
             case 'login':
-                if ($this->api->User->login($this->api->args['username'], $this->api->args['password'])) {
+                if ($this->api->User->login($this->api->args['email'], $this->api->args['password'])) {
                     return array(
                         'user' => $this->api->User->getUserInfo(),
                         'token' => session_id(),

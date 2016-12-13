@@ -8,9 +8,9 @@
 <md-content flex layout-padding id="content" layout="column">
     <form name="loginForm" ng-submit="login.login()" novalidate>
         <md-input-container class="md-block">
-            <label>Имя</label>
-            <input required name="username" ng-model="login.username" md-autofocus>
-            <div ng-messages="loginForm.username.$error">
+            <label>Email</label>
+            <input required name="email" ng-model="login.email" autofocus>
+            <div ng-messages="loginForm.email.$error">
                 <div ng-message="required">Заполните поле</div>
             </div>
         </md-input-container>
