@@ -58,8 +58,8 @@ class Endpoint extends EndpointAbstract
 		$rs = $this->api->db->prepare("
 			SELECT users.id_user, users.email, users.username
 			FROM users, user_lists
-			WHERE user_lists.id_list = ? AND users.id_user = user_lists.id_user");
-		$rs->execute(array($this->id_list));
+			WHERE user_lists.id_list = ? AND users.id_user = user_lists.id_user AND users.id_user <> ?");
+		$rs->execute(array($this->id_list, $this->api->User->getId()));
 		$users = $rs->fetchAll(PDO::FETCH_ASSOC);
 		return $users;
 	}

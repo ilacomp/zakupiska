@@ -35,7 +35,7 @@
     </div>
 </md-toolbar>
 <md-content flex id="content" layout="column">
-    <md-list>
+    <md-list id="list">
         <div>
             <md-list-item ng-repeat="item in buyItems = (listitems.items | filter: {checked: '0'})">
                 <md-checkbox ng-model="item.checked" aria-label="Выбрать" ng-true-value="'1'" ng-false-value="'0'" ng-change="listitems.checkItem(item)"></md-checkbox>

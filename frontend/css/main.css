@@ -63,12 +63,12 @@ md-toolbar.light md-icon {
     margin-top: 20px;
 }
 
-.buyed md-list-item{
+.buyed md-list-item p{
     color: lightgray;
     text-decoration: line-through;
 }
 
-md-list-item md-checkbox.md-checked .md-icon {
+#list md-list-item md-checkbox.md-checked .md-icon {
     background-color: lightgray;
 }
 

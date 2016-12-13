@@ -4,29 +4,45 @@
 (function() {
     angular.module('APP').controller("ShareListCtrl", ShareListCtrl);
 
-	ShareListCtrl.$inject = ['friendsService', 'sharesService', '$state', '$mdToast', '$rootScope'];
+	ShareListCtrl.$inject = ['friendsService', 'sharesService', '$state', '$mdToast', '$rootScope', '$q'];
 
-    function ShareListCtrl (friendsService, sharesService, $state, $mdToast, $rootScope) {
+    function ShareListCtrl (friendsService, sharesService, $state, $mdToast, $rootScope, $q) {
 	    var self = this;
-	    this.deleteFriend = deleteFriend;
+        this.id_list = $state.params.id_list;
+        this.friends = [];
+	    this.checkItem = checkItem;
         activate();
 
         function activate() {
-	        self.friends = friendsService.query();
+            $rootScope.loading = true;
+        	$q.all([
+                friendsService.query().$promise,
+				sharesService.query({id_list: self.id_list}).$promise
+			]).then(function(results){
+				if (angular.isArray(results[1])) {
+                    self.friends = results[0].map(function (friend) {
+                        friend.checked = results[1].some(function (item) {
+                            return item.id_user == friend.id_user;
+                        });
+                        return friend;
+                    });
+                }
+                $rootScope.loading = false;
+			});
         }
 
-        function deleteFriend(item, evt) {
-            evt.stopPropagation();
-	        var selectedItemIndex = self.friends.indexOf(item);
-	        $rootScope.loading = true;
-	        item.$remove({id: item.id_user}, function(data){
-		        $rootScope.loading = false;
-		        if (data.error) {
-			        $mdToast.showSimple(data.error);
-		        } else {
-			        self.friends.splice(selectedItemIndex, 1);
-		        }
-	        });
+        function checkItem(item) {
+			if (item.checked) {
+                sharesService.put({id_list: self.id_list}, {id_user: item.id_user}, onFinished);
+			} else {
+                sharesService.remove({id_list: self.id_list, id_user: item.id_user}, onFinished);
+			}
+
+            function onFinished(data){
+                if (data.error) {
+                    $mdToast.showSimple(data.error);
+                }
+            }
         }
     }
 })();

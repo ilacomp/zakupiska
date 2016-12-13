@@ -98,7 +98,7 @@
             )
             .state("sharelist",
                 {
-                    url: "/sharelist",
+                    url: "/sharelist/:id_list",
                     templateUrl: "views/sharelist.html",
                     controller: "ShareListCtrl",
                     controllerAs: "shareCtrl"
