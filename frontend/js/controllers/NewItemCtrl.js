@@ -4,9 +4,9 @@
 (function() {
     angular.module('APP').controller("NewItemCtrl", NewItemCtrl);
 
-    NewItemCtrl.$inject = ['$state', '$window', 'listItemsService', '$mdToast', '$rootScope'];
+    NewItemCtrl.$inject = ['$state', '$window', 'listItemsService', 'autocompleteService', '$mdToast', '$rootScope', '$timeout'];
 
-    function NewItemCtrl ($state, $window, listItemsService, $mdToast, $rootScope) {
+    function NewItemCtrl ($state, $window, listItemsService, autocompleteService, $mdToast, $rootScope, $timeout) {
         var self = this;
         var defaultProduct = {
             title: '',
@@ -17,10 +17,14 @@
         this.add = add;
         this.addReturn = addReturn;
         this.goBack = goBack;
+        this.querySearch = querySearch;
+        focus();
 
         function focus() {
-            var element = $window.document.getElementById('new-item-title');
-            if(element) element.focus();
+	        $timeout(function(){
+		        var element = $window.document.getElementById('new-item-title');
+		        if(element) element.focus();
+            });
         }
 
         function add(){
@@ -52,5 +56,9 @@
         function goBack() {
             $state.go('list_items', {id_list: self.id_list});
         }
+
+	    function querySearch(text) {
+		    return autocompleteService.query({entity: 'products'}, {text: text});
+	    }
     };
 })();

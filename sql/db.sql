@@ -78,3 +78,8 @@ CREATE TABLE `friends`
   CONSTRAINT friends_users_id_user_fk FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT friends_users_id_friend_fk FOREIGN KEY (id_friend) REFERENCES users (id_user) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE `products_catalog`
+(
+  title VARCHAR(200) PRIMARY KEY NOT NULL
+);

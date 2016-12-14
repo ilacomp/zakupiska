@@ -85,6 +85,7 @@ class Endpoint extends EndpointAbstract
                 $rs = $this->api->db->prepare("INSERT INTO items (id_list, title, amount) VALUES (?, ?, ?)");
                 if ( $rs->execute(array($this->id_list, $this->api->args['title'], $this->api->args['amount'])) ) {
                     $id_item = $this->api->db->lastInsertId();
+                    $this->addProductToCatalog($this->api->args['title']);
                     return array('id_item' => $id_item);
                 } else {
                     return array('error'=>'Ошибка при создании товара');
@@ -122,6 +123,7 @@ class Endpoint extends EndpointAbstract
             case 'POST':
                 $rs = $this->api->db->prepare("UPDATE items SET title=?, amount=?, checked=? WHERE id_item=?");
                 if ( $rs->execute(array($this->api->args['title'], $this->api->args['amount'], $this->api->args['checked'], $this->id_item)) ) {
+	                $this->addProductToCatalog($this->api->args['title']);
                     return true;
                 } else {
                     return array('error'=>'Ошибка при сохранении товара');
@@ -158,5 +160,12 @@ class Endpoint extends EndpointAbstract
         } else {
             return array('error'=>'Ошибка при создании списка');
         }
+    }
+
+    private function addProductToCatalog($title) {
+	    //Вставка товара в справочник
+	    $rs = $this->api->db->prepare("INSERT INTO products_catalog (title) VALUES (?)");
+	    $rs->execute(array($title));
+
     }
 }

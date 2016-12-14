@@ -2,7 +2,12 @@ body {
     max-width: 960px;
     margin: 0 auto;
 }
-
+#content {
+    background: -webkit-linear-gradient(to top left, #DDD, #FFF);
+    background: -moz-linear-gradient(to top left, #DDD, #FFF);
+    background: -o-linear-gradient(to top left, #DDD, #FFF);
+    background: linear-gradient(to top left, #DDD, #FFF);
+}
 /* Absolute Center Spinner */
 .loader {
     position: fixed;

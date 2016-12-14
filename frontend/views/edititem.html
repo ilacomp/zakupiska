@@ -11,14 +11,31 @@
 <md-content flex layout-padding id="content" layout="column" layout-align="top center">
     <form id="edititemForm" name="edititemForm" ng-submit="edititem.save()" novalidate>
         <section layout="row">
-            <md-input-container class="md-block">
-                <label>Название товара</label>
-                <input id="new-item-title" name="title" ng-model="edititem.product.title" autofocus ng-maxlength="200" required>
+            <md-autocomplete
+                    md-input-id="edit-item-title"
+                    md-input-name="title"
+                    md-input-minlength="2"
+                    md-input-maxlength="200"
+                    md-delay="1000"
+                    md-selected-item="edititem.selectedItem"
+                    md-search-text="edititem.product.title"
+                    md-items="item in edititem.querySearch(edititem.product.title)"
+                    md-item-text="item.title"
+                    md-min-length="2"
+                    required
+                    md-floating-label="Название товара">
+                <md-item-template>
+                    <span md-highlight-text="edititem.product.title" md-highlight-flags="^i">{{item.title}}</span>
+                </md-item-template>
+                <md-not-found>
+                    Не найдено
+                </md-not-found>
                 <div ng-messages="edititemForm.title.$error">
                     <div ng-message="required">Заполните поле</div>
                     <div ng-message="maxlength">Введите более короткое название</div>
                 </div>
-            </md-input-container>
+            </md-autocomplete>
+
             <md-input-container class="md-block">
                 <label>Количество</label>
                 <input name="amount" ng-model="edititem.product.amount" ng-maxlength="45">
