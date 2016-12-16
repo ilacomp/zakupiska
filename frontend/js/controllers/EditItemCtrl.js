@@ -39,7 +39,7 @@
         }
 
 	    function querySearch(text) {
-		    return autocompleteService.query({entity: 'products'}, {text: text});
+		    return autocompleteService.query({entity: 'products'}, {text: text}).$promise;
 	    }
     };
 })();

@@ -27,9 +27,6 @@
                 <md-item-template>
                     <span md-highlight-text="newitem.product.title" md-highlight-flags="^i">{{item.title}}</span>
                 </md-item-template>
-                <md-not-found>
-                    Не найдено
-                </md-not-found>
                 <div ng-messages="newItemForm.title.$error">
                     <div ng-message="required">Заполните поле</div>
                     <div ng-message="maxlength">Введите более короткое название</div>
