@@ -24,7 +24,7 @@
                     </md-button>
                 </md-menu-item>
                 <md-divider></md-divider>
-                <md-menu-item>
+                <md-menu-item ng-show="listitems.list.rights == 'owner'">
                     <md-button ng-click="listitems.clearList()">
                         <md-icon md-font-set="material-icons" md-menu-align-target>delete</md-icon>
                         Очистить
@@ -41,7 +41,7 @@
                 <md-checkbox ng-model="item.checked" aria-label="Выбрать" ng-true-value="'1'" ng-false-value="'0'" ng-change="listitems.checkItem(item)"></md-checkbox>
                 <p flex="80" class="overflow-text">{{::item.title}}</p>
                 <p flex="20" class="overflow-text md-caption align-right">{{::item.amount}}</p>
-                <md-button class="md-icon-button" ng-click="listitems.showBottomSheet(item, $event)">
+                <md-button class="md-icon-button" ng-click="listitems.showBottomSheet(item, $event)" ng-show="listitems.list.rights == 'owner'">
                     <md-icon md-font-set="material-icons">more_vert</md-icon>
                 </md-button>
             </md-list-item>
@@ -53,7 +53,7 @@
                 <md-checkbox ng-model="item.checked" aria-label="Выбрать" ng-true-value="'1'" ng-false-value="'0'"  ng-change="listitems.checkItem(item)"></md-checkbox>
                 <p flex="80" class="overflow-text">{{::item.title}}</p>
                 <p flex="20" class="overflow-text md-caption align-right">{{::item.amount}}</p>
-                <md-button class="md-icon-button" ng-click="listitems.showBottomSheet(item, $event)">
+                <md-button class="md-icon-button" ng-click="listitems.showBottomSheet(item, $event)" ng-show="listitems.list.rights == 'owner'">
                     <md-icon md-font-set="material-icons">more_vert</md-icon>
                 </md-button>
             </md-list-item>
@@ -64,6 +64,11 @@
         <p>Список пуст</p>
     </div>
 </md-content>
-<md-button class="md-fab md-fab-bottom-right" aria-label="Добавить товар" ui-sref="newitem({ id_list: listitems.id_list })">
+<md-button
+        class="md-fab md-fab-bottom-right"
+        aria-label="Добавить товар"
+        ui-sref="newitem({ id_list: listitems.id_list })"
+        ng-show="listitems.list.rights == 'owner'"
+>
     <md-icon md-font-set="material-icons">add</md-icon>
 </md-button>

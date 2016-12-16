@@ -16,7 +16,7 @@
                     <h3 class="overflow-text">{{item.title}}</h3>
                     <md-progress-linear md-mode="determinate" value="{{item.checked/item.total*100}}"></md-progress-linear>
                 </div>
-                <md-button class="md-icon-button" ng-click="lists.showBottomSheet(item, $event)">
+                <md-button class="md-icon-button" ng-click="lists.showBottomSheet(item, $event)" ng-show="item.rights == 'owner'">
                     <md-icon md-font-set="material-icons">more_vert</md-icon>
                 </md-button>
                 <md-divider ></md-divider>

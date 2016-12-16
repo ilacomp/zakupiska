@@ -39,7 +39,7 @@ class Endpoint extends EndpointAbstract
         switch($this->api->method) {
             case 'GET': //Получить списки покупок
                 $rs = $this->api->db->prepare("
-                  SELECT lists.*, COUNT(items.id_item) as total, COUNT(IF(items.checked='1',1,NULL)) as checked
+                  SELECT lists.*, COUNT(items.id_item) as total, COUNT(IF(items.checked='1',1,NULL)) as checked, user_lists.rights
                   FROM lists LEFT JOIN items ON items.id_list = lists.id_list, user_lists 
                   WHERE user_lists.id_user = ? AND lists.id_list = user_lists.id_list GROUP BY id_list");
                 $rs->execute(array($this->api->User->getId()));
@@ -74,6 +74,7 @@ class Endpoint extends EndpointAbstract
                 return array('list'=>$list, 'items'=>$items);
                 break;
             case 'POST': //Сохранить список
+                if ($list['rights'] !== 'owner') throw new Exception ('Forbidden', 403);
                 $rs = $this->api->db->prepare("UPDATE lists SET title=?, color=? WHERE id_list=?");
                 if ( $rs->execute(array($this->api->args['title'], $this->api->args['color'], $this->id_list)) ) {
                     return true;
@@ -82,6 +83,7 @@ class Endpoint extends EndpointAbstract
                 }
                 break;
             case 'PUT': //Добавить товар в список
+                if ($list['rights'] !== 'owner') throw new Exception ('Forbidden', 403);
                 $rs = $this->api->db->prepare("INSERT INTO items (id_list, title, amount) VALUES (?, ?, ?)");
                 if ( $rs->execute(array($this->id_list, $this->api->args['title'], $this->api->args['amount'])) ) {
                     $id_item = $this->api->db->lastInsertId();
@@ -92,6 +94,7 @@ class Endpoint extends EndpointAbstract
                 }
                 break;
             case 'DELETE': //Удалить список
+                if ($list['rights'] !== 'owner') throw new Exception ('Forbidden', 403);
                 $rs = $this->api->db->prepare("DELETE lists FROM lists, user_lists WHERE lists.id_list = ? AND user_lists.id_user = ? AND lists.id_list = user_lists.id_list");
                 if($rs->execute(array( $this->id_list, $this->api->User->getId() ))) {
                     return true;
@@ -107,6 +110,7 @@ class Endpoint extends EndpointAbstract
         $list = $this->getCurrentList();
         switch($this->api->method) {
             case 'DELETE':
+                if ($list['rights'] !== 'owner') throw new Exception ('Forbidden', 403);
                 $rs = $this->api->db->prepare("DELETE items FROM items, user_lists WHERE items.id_item = ? AND user_lists.id_list=items.id_list AND user_lists.id_user=?");
                 if($rs->execute(array( $this->id_item, $this->api->User->getId() ))) {
                     return true;
@@ -133,7 +137,7 @@ class Endpoint extends EndpointAbstract
     }
 
     private function getCurrentList() {
-        $rs = $this->api->db->prepare("SELECT lists.* FROM lists, user_lists WHERE lists.id_list=? AND user_lists.id_user = ? AND lists.id_list = user_lists.id_list");
+        $rs = $this->api->db->prepare("SELECT lists.*, user_lists.rights FROM lists, user_lists WHERE lists.id_list=? AND user_lists.id_user = ? AND lists.id_list = user_lists.id_list");
         $rs->execute(array( $this->id_list, $this->api->User->getId() ));
         $list = $rs->fetch(PDO::FETCH_ASSOC);
         if (empty($list)) {
@@ -146,6 +150,7 @@ class Endpoint extends EndpointAbstract
     private function copyList() {
         $this->id_list = $this->api->args['id'];
         $list = $this->getCurrentList();
+        if ($list['rights'] !== 'owner') throw new Exception ('Forbidden', 403);
         $rs = $this->api->db->prepare("INSERT INTO lists (color, title) (SELECT color, CONCAT(title, ' (копия)') as title FROM lists WHERE id_list=?)");
         if ($rs->execute(array( $this->id_list))) {
             $new_list = $this->api->db->lastInsertId();
