@@ -7,7 +7,8 @@
         <md-toolbar class="md-theme-indigo">
             <h1 class="md-toolbar-tools" ng-if="!idx.isAuth()">Меню</h1>
             <div layout="row" layout-padding ng-if="idx.isAuth()">
-                <md-icon md-font-set="material-icons" class="md-avatar-icon big-icon">account_circle</md-icon>
+                <img ng-src="{{idx.user().photo? idx.user().photo : '/img/photo.jpg'}}" class="menu-avatar" alt="{{idx.user().username}}" />
+                <!--<md-icon md-font-set="material-icons" class="md-avatar-icon big-icon">account_circle</md-icon>-->
                 <div layout="column">
                     <h3>{{idx.user().username}}</h3>
                     <p>{{idx.user().email}}</p>

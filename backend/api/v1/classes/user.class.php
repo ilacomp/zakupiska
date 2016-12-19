@@ -12,6 +12,7 @@ class User {
 	private $username;
 	private $email;
 	private $phone;
+	private $photo;
 	private $db;
 	private $userTable;
 	private $session_var = 'id_user';
@@ -29,12 +30,13 @@ class User {
 		$this->username = '';
 		$this->email = '';
 		$this->phone = '';
+		$this->photo = '';
 		$this->userTable = Config::get('db_prefix').'users';
 		$this->db = DB::getInstance();
 	}
 
 	function loadById($id_user) {
-		$rs = $this->db->prepare("SELECT id_user, username, email, phone FROM ".$this->userTable." WHERE id_user=? LIMIT 1");
+		$rs = $this->db->prepare("SELECT id_user, username, email, phone, photo FROM ".$this->userTable." WHERE id_user=? LIMIT 1");
 		$rs->execute(array($id_user));
 
 		if($row = $rs->fetch(PDO::FETCH_ASSOC)) {
@@ -42,6 +44,7 @@ class User {
 			$this->id_user = $row['id_user'];
 			$this->email = $row['email'];
 			$this->phone = $row['phone'];
+			$this->photo = $row['photo'];
 			return true;
 		}
 		else {
@@ -57,7 +60,7 @@ class User {
 			return false;
 		}
 
-		$rs = $this->db->prepare("SELECT id_user, username, email, phone  FROM ".$this->userTable." WHERE email=? AND password=? LIMIT 1");
+		$rs = $this->db->prepare("SELECT id_user, username, email, phone, photo FROM ".$this->userTable." WHERE email=? AND password=? LIMIT 1");
 		$rs->execute(array($email, md5($password)));
 
 		if($row = $rs->fetch(PDO::FETCH_ASSOC)) {
@@ -65,6 +68,7 @@ class User {
 			$this->id_user = $row['id_user'];
 			$this->email = $row['email'];
 			$this->phone = $row['phone'];
+			$this->photo = $row['photo'];
 			$_SESSION[$this->session_var] = $this->id_user;
 			return true;
 		}
@@ -105,19 +109,33 @@ class User {
 			$this->error = 'Пароли не совпадают';
 			return false;
 		}
-
+		$upload_dir = __DIR__.'/../../../img/photos';
+		//Upload file
+		$photo = '';
+		if (!empty($_FILES['photo'])) {
+			$path_parts = pathinfo($_FILES['photo']['name']);
+			$filename = $this->id_user . '-' . time() . '.' . $path_parts['extension'];
+			if (!file_exists($upload_dir)) mkdir($upload_dir, 0777);
+			move_uploaded_file($_FILES['photo']['tmp_name'], $upload_dir.'/'.$filename);
+			$photo = $filename;
+		}
 		if (empty($password)) {
-            $rs = $this->db->prepare("UPDATE ".$this->userTable." SET username=?, email=?, phone=? WHERE id_user=? LIMIT 1");
-            $res = $rs->execute(array($username, $email, $phone, $this->id_user));
+            $rs = $this->db->prepare("UPDATE ".$this->userTable." SET username=?, email=?, phone=?, photo=? WHERE id_user=? LIMIT 1");
+            $res = $rs->execute(array($username, $email, $phone, $photo, $this->id_user));
         } else {
-            $rs = $this->db->prepare("UPDATE ".$this->userTable." SET username=?, email=?, phone=?, password=? WHERE id_user=? LIMIT 1");
-		    $res = $rs->execute(array($username, $email, $phone, md5($password), $this->id_user));
+            $rs = $this->db->prepare("UPDATE ".$this->userTable." SET username=?, email=?, phone=?, photo=?, password=? WHERE id_user=? LIMIT 1");
+		    $res = $rs->execute(array($username, $email, $phone, $photo, md5($password), $this->id_user));
+        }
+
+        if (!empty($this->photo)) {
+			@unlink($upload_dir.'/'.$this->photo);
         }
 
 		if ($res) {
 			$this->username = $username;
 			$this->email = $email;
 			$this->phone = $phone;
+			$this->photo = $photo;
 			return true;
 		}
 		else {
@@ -132,6 +150,7 @@ class User {
 			'username' => $this->username,
 			'email' => $this->email,
 			'phone' => $this->phone,
+			'photo' => $this->photo,
 			'authorized' => $this->authorized()
 		);
 		return $data;

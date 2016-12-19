@@ -2,9 +2,9 @@
 (function() {
     angular.module('APP').factory('authService', authService);
 
-    authService.$inject = ['$resource', '$window', '$injector'];
+    authService.$inject = ['$resource', '$window', '$injector', 'Upload'];
 
-    function authService($resource, $window, $injector) {
+    function authService($resource, $window, $injector, Upload) {
         var self = this;
         init();
 
@@ -23,7 +23,8 @@
             return self.user.authorized;
         }
         function setUser(newUser){
-            self.user = newUser;
+	        if (newUser.photo) newUser.photo = '/img/photos/' + newUser.photo;
+	        self.user = newUser;
             $window.localStorage.setItem('user', JSON.stringify(newUser));
         }
 
@@ -32,12 +33,18 @@
         }
 
         function updateUser(params, successCallback, errorCallback) {
-            self.resource.update(params, function(data){
-                if (data.error){
-                    errorCallback(data.error);
+	        var photo = params.photo;
+	        delete params.photo;
+	        Upload.upload({
+		        url: '/api/v1/auth/update?token=' + self.token,
+		        method: 'POST',
+		        data: {photo: photo, user: params}
+	        }).then(function (resp) {
+                if (resp.data.error){
+                    errorCallback(resp.data.error);
                 } else {
-                    setUser(data.user);
-                    setToken(data.token);
+                    setUser(resp.data.user);
+                    setToken(resp.data.token);
                     successCallback()
                 }
             });
@@ -104,6 +111,7 @@
                 'username': '',
                 'email': '',
                 'phone': '',
+                'photo': '',
                 'authorized': false
             };
             setUser($window.localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')) : defaultUser);

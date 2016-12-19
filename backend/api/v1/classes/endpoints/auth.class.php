@@ -42,7 +42,8 @@ class Endpoint extends EndpointAbstract
                     );
                 }
             case 'update':
-                if ($this->api->User->update($this->api->args['username'], $this->api->args['email'], $this->api->args['phone'], $this->api->args['pass1'], $this->api->args['pass2']))
+	            $user = $this->api->request['user'];
+                if ($this->api->User->update($user['username'], $user['email'], $user['phone'], $user['pass1'], $user['$pass2']))
                     return array(
                         'user' => $this->api->User->getUserInfo(),
                         'token' => session_id(),

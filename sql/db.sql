@@ -83,3 +83,5 @@ CREATE TABLE `products_catalog`
 (
   title VARCHAR(200) PRIMARY KEY NOT NULL
 );
+
+ALTER TABLE users ADD photo VARCHAR(255) NULL;

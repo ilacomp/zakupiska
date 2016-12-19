@@ -1,5 +1,5 @@
 (function() {
-    angular.module('APP', ['ngMaterial', 'ui.router', 'ngResource', 'ngMessages']).
+    angular.module('APP', ['ngMaterial', 'ui.router', 'ngResource', 'ngMessages', 'ngFileUpload']).
         config(config).
         run(run);
 
