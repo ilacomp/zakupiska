@@ -18,9 +18,8 @@ class APIv1 extends API
     public function __construct($request, $origin) {
         parent::__construct($request);
         $this->db = DB::getInstance();
-
-        if (!empty($this->request['token'])) {
-            session_id($this->request['token']);
+        if (!empty($_SERVER['HTTP_X_SESSION_TOKEN'])) {
+            session_id($_SERVER['HTTP_X_SESSION_TOKEN']);
         }
         session_start();
         $this->loadUser();

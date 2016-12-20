@@ -24,7 +24,7 @@
             evt.stopPropagation();
             self.selectedItem = item;
             $mdBottomSheet.show({
-                templateUrl   : 'views/bottom-sheet-lists.html',
+                templateUrl   : 'bottom-sheet-lists.html',
                 controller    : [ '$mdBottomSheet', '$mdToast', ItemsSheetController ],
                 controllerAs  : "bs"
             });

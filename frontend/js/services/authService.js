@@ -36,7 +36,7 @@
 	        var photo = params.photo;
 	        delete params.photo;
 	        Upload.upload({
-		        url: '/api/v1/auth/update?token=' + self.token,
+		        url: '/api/v1/auth/update',
 		        method: 'POST',
 		        data: {photo: photo, user: params}
 	        }).then(function (resp) {
@@ -117,7 +117,7 @@
             setUser($window.localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')) : defaultUser);
             setToken($window.localStorage.getItem('token') || '');
 
-            self.resource = $resource('/api/v1/auth/:action', {action: '', token: self.token}, {
+            self.resource = $resource('/api/v1/auth/:action', {action: ''}, {
                 checkAuth: {method: 'get'},
                 login: {method: 'post', params: {action: 'login'}},
                 logout: {method: 'post', params: {action: 'logout'}},

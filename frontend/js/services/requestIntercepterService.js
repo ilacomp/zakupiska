@@ -19,12 +19,8 @@
             },
             request: function(config) {
                 var authService = $injector.get('authService');
-                if (config.url.indexOf('/api/')===0 && authService.isAuth()) {
-                    if (config.params) {
-                        config.params.token = authService.getToken();
-                    } else {
-                        config.params = {token: authService.getToken()};
-                    }
+                if (config.url.indexOf('/api/') === 0 && authService.isAuth()) {
+	                config.headers['x-session-token'] = authService.getToken();
                 }
                 return config;
             }

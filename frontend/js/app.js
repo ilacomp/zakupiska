@@ -1,5 +1,5 @@
 (function() {
-    angular.module('APP', ['ngMaterial', 'ui.router', 'ngResource', 'ngMessages', 'ngFileUpload']).
+    angular.module('APP', ['ngMaterial', 'ui.router', 'ngResource', 'ngMessages', 'ngFileUpload', 'templates']).
         config(config).
         run(run);
 
@@ -11,7 +11,7 @@
         $stateProvider
             .state("index", {
                 url: "/",
-                templateUrl: "views/main.html",
+                templateUrl: "main.html",
                 controller: "IndexCtrl",
                 controllerAs: "idx"
                 }
@@ -19,7 +19,7 @@
             .state("login",
                 {
                     url: "/login",
-                    templateUrl: "views/login.html",
+                    templateUrl: "login.html",
                     controller: "LoginCtrl",
                     controllerAs: "login"
                 }
@@ -27,7 +27,7 @@
             .state("register",
                 {
                     url: "/register",
-                    templateUrl: "views/register.html",
+                    templateUrl: "register.html",
                     controller: "RegisterCtrl",
                     controllerAs: "register"
                 }
@@ -35,7 +35,7 @@
             .state("lists",
                 {
                     url: "/lists",
-                    templateUrl: "views/lists.html",
+                    templateUrl: "lists.html",
                     controller: "ListsCtrl",
                     controllerAs: "lists"
                 }
@@ -43,7 +43,7 @@
             .state("newlist",
                 {
                     url: "/newlist",
-                    templateUrl: "views/newlist.html",
+                    templateUrl: "newlist.html",
                     controller: "NewListCtrl",
                     controllerAs: "newlist"
                 }
@@ -51,7 +51,7 @@
             .state("editlist",
                 {
                     url: "/editlist/:id_list",
-                    templateUrl: "views/editlist.html",
+                    templateUrl: "editlist.html",
                     controller: "EditListCtrl",
                     controllerAs: "editlist"
                 }
@@ -59,7 +59,7 @@
             .state("list_items",
                 {
                     url: "/lists/:id_list",
-                    templateUrl: "views/lists.items.html",
+                    templateUrl: "lists.items.html",
                     controller: "ListItemsCtrl",
                     controllerAs: "listitems"
                 }
@@ -67,7 +67,7 @@
             .state("newitem",
                 {
                     url: "/lists/:id_list/newitem",
-                    templateUrl: "views/newitem.html",
+                    templateUrl: "newitem.html",
                     controller: "NewItemCtrl",
                     controllerAs: "newitem"
                 }
@@ -75,7 +75,7 @@
             .state("edititem",
                 {
                     url: "/edititem/:id_list/:id_item",
-                    templateUrl: "views/edititem.html",
+                    templateUrl: "edititem.html",
                     controller: "EditItemCtrl",
                     controllerAs: "edititem"
                 }
@@ -83,7 +83,7 @@
             .state("profile",
                     {
                         url: "/profile",
-                        templateUrl: "views/profile.html",
+                        templateUrl: "profile.html",
                         controller: "ProfileCtrl",
                         controllerAs: "profile"
                     }
@@ -91,7 +91,7 @@
             .state("friends",
                 {
                     url: "/friends",
-                    templateUrl: "views/friends.html",
+                    templateUrl: "friends.html",
                     controller: "FriendsCtrl",
                     controllerAs: "frCtrl"
                 }
@@ -99,7 +99,7 @@
             .state("sharelist",
                 {
                     url: "/sharelist/:id_list",
-                    templateUrl: "views/sharelist.html",
+                    templateUrl: "sharelist.html",
                     controller: "ShareListCtrl",
                     controllerAs: "shareCtrl"
                 }

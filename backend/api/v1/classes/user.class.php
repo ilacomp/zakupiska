@@ -111,7 +111,7 @@ class User {
 		}
 		$upload_dir = __DIR__.'/../../../img/photos';
 		//Upload file
-		$photo = '';
+		$photo = $this->photo;
 		if (!empty($_FILES['photo'])) {
 			$path_parts = pathinfo($_FILES['photo']['name']);
 			$filename = $this->id_user . '-' . time() . '.' . $path_parts['extension'];
