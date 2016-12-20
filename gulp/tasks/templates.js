@@ -3,7 +3,7 @@
  */
 var gulp = require('gulp'),
 	templateCache = require('gulp-angular-templatecache'),
-	paths = require('./config').paths;
+	paths = require('../config').paths;
 
 
 function templates() {

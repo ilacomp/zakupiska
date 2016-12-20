@@ -4,7 +4,7 @@
 var gulp = require('gulp'),
 	mainBowerFiles = require('main-bower-files'),
 	concat = require('gulp-concat'),
-	config = require('./config');
+	config = require('../config');
 
 function vendorDev() {
 	return gulp.src(mainBowerFiles())

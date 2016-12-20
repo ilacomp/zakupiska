@@ -3,12 +3,14 @@
  */
 var gulp = require('gulp'),
 	concat = require('gulp-concat'),
-	paths = require('./config').paths;
+	minifyCSS = require('gulp-minify-css'),
+	paths = require('../config').paths;
 
-function cssDev() {
+function css() {
 	return gulp.src(paths.css)
 		.pipe(concat('main.min.css'))
+		.pipe(minifyCSS())
 		.pipe(gulp.dest('www/css'));
 }
 
-module.exports = cssDev;
+module.exports = css;

@@ -3,7 +3,7 @@
  */
 var gulp = require('gulp'),
 	gutil = require('gulp-util'),
-	paths = require('./config').paths,
+	paths = require('../config').paths,
 	scriptsDev = require('./scriptsDev'),
 	asIs = require('./asis'),
 	templates = require('./templates'),

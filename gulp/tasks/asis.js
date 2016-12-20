@@ -4,7 +4,7 @@
 var gulp = require('gulp'),
 	gulpif = require('gulp-if'),
 	replace = require('gulp-replace'),
-	paths = require('./config').paths;
+	paths = require('../config').paths;
 
 function asIs() {
 	var timestamp = Date.now();

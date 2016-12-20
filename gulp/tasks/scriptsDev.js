@@ -3,7 +3,7 @@
  */
 var gulp = require('gulp'),
 	concat = require('gulp-concat'),
-	paths = require('./config').paths;
+	paths = require('../config').paths;
 
 function scriptsDev() {
 	return gulp.src(paths.scripts)

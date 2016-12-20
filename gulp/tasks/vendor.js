@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	minifyCSS = require('gulp-minify-css'),
-	config = require('./config');
+	config = require('../config');
 
 function vendor() {
 	return gulp.src(mainBowerFiles())
