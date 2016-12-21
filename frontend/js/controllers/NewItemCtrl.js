@@ -21,7 +21,7 @@
         focus();
 
         function focus() {
-	        $timeout(function(){
+            $timeout(function(){
 		        var element = $window.document.getElementById('new-item-title');
 		        if(element) element.focus();
             });
@@ -58,7 +58,14 @@
         }
 
 	    function querySearch(text) {
-		    return autocompleteService.query({entity: 'products'}, {text: text}).$promise;
+		    return autocompleteService.query({entity: 'products'}, {text: text}).$promise.then(removeMask);
 	    }
-    };
+	    //Грязный хак по скрытию подсказок автодополнения. Может пофиксят с будущих версиях.
+	    function removeMask(data){
+	        angular.element(document).one('click', function () {
+		        angular.element(document.getElementById('new-item-title')).blur();
+	        });
+		    return data;
+	    }
+    }
 })();

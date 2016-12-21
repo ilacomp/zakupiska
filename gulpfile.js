@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 gulp.task('clean', tasks.clean);
 // Copy backend files
 gulp.task('backend', ['clean'], tasks.backend);
-gulp.task('asis', ['clean'], tasks.asIs);
+gulp.task('asis', ['clean'], tasks.asis);
 gulp.task('templates', ['clean'], tasks.templates);
 // Concat JS
 gulp.task('scripts-dev', ['clean'], tasks.scriptsDev);

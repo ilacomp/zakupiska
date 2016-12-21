@@ -7,7 +7,7 @@ var config = {
 	paths: {
 		backend: ['backend/**', 'backend/.htaccess'],
 		scripts: 'frontend/js/**/*.js',
-		asis: ['frontend/**/*.{json,jpg,png,gif,svg}', 'frontend/**/index.html'],
+		asis: ['frontend/**/*.{json,jpg,png,gif,svg}', 'frontend/*.html'],
 		templates: ['frontend/views/*.html'],
 		css: 'frontend/css/**/*.css',
 		del: ['www/**', '!www', '!www/img', '!www/img/photos', '!www/img/photos/**']
